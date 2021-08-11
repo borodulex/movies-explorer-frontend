@@ -1,34 +1,45 @@
-import { Switch, Route } from 'react-router-dom';
+import { useMediaQuery } from 'react-responsive';
+import { Route, Switch, useLocation } from 'react-router-dom';
+
+import Header from '../Header/Header';
+import Login from '../Login/Login';
 import Main from '../Main/Main';
 import Movies from '../Movies/Movies';
-import SavedMovies from '../SavedMovies/SavedMovies';
 import Profile from '../Profile/Profile';
-import Login from '../Login/Login';
 import Register from '../Register/Register';
+import SavedMovies from '../SavedMovies/SavedMovies';
 
 function App() {
+  const location = useLocation();
+  const isMobile = useMediaQuery({ query: '(max-width: 768px)' });
+
   return (
-    <div className="App">
-      <Switch>
-        <Route exact path="/">
-          <Main></Main>
-        </Route>
-        <Route path="/movies">
-          <Movies></Movies>
-        </Route>
-        <Route path="/saved-movies">
-          <SavedMovies></SavedMovies>
-        </Route>
-        <Route path="/profile">
-          <Profile></Profile>
-        </Route>
-        <Route path="/signin">
-          <Login></Login>
-        </Route>
-        <Route path="/signup">
-          <Register></Register>
-        </Route>
-      </Switch>
+    <div className="page">
+      {location.pathname !== '/signin' && (
+        <Header isLoggedIn={true} isMobile={isMobile} />
+      )}
+      <main className="content">
+        <Switch>
+          <Route exact path="/">
+            <Main />
+          </Route>
+          <Route path="/movies">
+            <Movies />
+          </Route>
+          <Route path="/saved-movies">
+            <SavedMovies />
+          </Route>
+          <Route path="/profile">
+            <Profile />
+          </Route>
+          <Route path="/signin">
+            <Login />
+          </Route>
+          <Route path="/signup">
+            <Register />
+          </Route>
+        </Switch>
+      </main>
     </div>
   );
 }

@@ -6,8 +6,11 @@
     "@testing-library/jest-dom": "^5.11.4",
     "@testing-library/react": "^11.1.0",
     "@testing-library/user-event": "^12.1.10",
+    "bem-cn": "^3.0.1",
+    "framer-motion": "^4.1.17",
     "react": "^17.0.2",
     "react-dom": "^17.0.2",
+    "react-responsive": "^9.0.0-beta.3",
     "react-router-dom": "^5.2.0",
     "react-scripts": "4.0.3",
     "web-vitals": "^1.0.1"
@@ -23,7 +26,14 @@
       "react-app",
       "react-app/jest",
       "prettier"
-    ]
+    ],
+    "plugins": [
+      "simple-import-sort"
+    ],
+    "rules": {
+      "simple-import-sort/imports": "error",
+      "simple-import-sort/exports": "error"
+    }
   },
   "browserslist": {
     "production": [
@@ -39,6 +49,8 @@
   },
   "devDependencies": {
     "eslint-config-prettier": "^8.3.0",
-    "prettier": "^2.3.2"
+    "eslint-plugin-simple-import-sort": "^7.0.0",
+    "prettier": "^2.3.2",
+    "prettier-plugin-style-order": "^0.2.2"
   }
 }

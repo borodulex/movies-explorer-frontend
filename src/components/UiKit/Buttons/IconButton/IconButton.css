@@ -1,0 +1,17 @@
+.icon-button {
+  display: inline-flex;
+  align-content: center;
+  justify-content: center;
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  background: transparent;
+  border: 0;
+  border-radius: 50%;
+}
+
+.icon-button:hover {
+  cursor: pointer;
+  opacity: 0.8;
+  transition: opacity 0.1s ease-out;
+}

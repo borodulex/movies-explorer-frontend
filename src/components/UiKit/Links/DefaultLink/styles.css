@@ -1,0 +1,28 @@
+.default-link {
+  color: #000;
+  font-size: 14px;
+  line-height: 18px;
+  text-decoration: none;
+}
+
+.default-link_size_small {
+  font-size: 12px;
+  line-height: 16px;
+}
+
+.default-link_size_mobile {
+  font-size: 18px;
+  line-height: 22px;
+}
+
+.default-link_select_bold {
+  font-weight: 500;
+}
+
+.default-link_select_underline {
+  font-weight: 400;
+  text-decoration: underline;
+  text-decoration-color: #000;
+  text-decoration-thickness: 2px;
+  text-underline-offset: 4px;
+}

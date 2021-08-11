@@ -1,0 +1,27 @@
+.main-nav__list {
+  display: flex;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.main-nav__list_vertical {
+  flex-direction: column;
+  align-items: center;
+}
+
+.main-nav__item {
+  margin-right: 16px;
+}
+
+.main-nav__item:last-child {
+  margin-right: 0;
+}
+
+.main-nav__item_vertical:not(:first-child) {
+  margin: 28px 0 0;
+}
+
+.main-nav__item_vertical:first-child {
+  margin: 0;
+}

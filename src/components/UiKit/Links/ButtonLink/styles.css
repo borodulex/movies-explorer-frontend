@@ -1,0 +1,9 @@
+.button-link {
+  padding: 8px 20px;
+}
+
+.button-link_type_solid {
+  color: #fff;
+  background-color: #000;
+  border-radius: 3px;
+}
