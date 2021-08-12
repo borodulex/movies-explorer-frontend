@@ -10,7 +10,7 @@ import Navigation from '../Navigation/Navigation';
 import IconButton from '../UiKit/Buttons/IconButton/IconButton';
 
 const SideBar = (props) => {
-  const { isOpen, isMobile, onClose } = props;
+  const { visible, onClose } = props;
 
   const b = block('sidebar');
 
@@ -45,14 +45,14 @@ const SideBar = (props) => {
     <div className={b()}>
       <motion.div
         initial={false}
-        animate={isOpen ? 'visible' : 'hidden'}
+        animate={visible ? 'visible' : 'hidden'}
         variants={overlayVariants}
         transition={animationTransition}
         className={b('overlay')}
       />
       <motion.div
         initial={false}
-        animate={isOpen ? 'open' : 'closed'}
+        animate={visible ? 'open' : 'closed'}
         variants={sideBarVariants}
         transition={animationTransition}
         className={b('container')}
@@ -62,9 +62,8 @@ const SideBar = (props) => {
         </IconButton>
         <Navigation
           mixClass={b('navigation')}
-          vertical
+          type="sidebar"
           listData={sideBarNavData}
-          isMobile={isMobile}
           onClick={onClose}
         />
         <AccountButton mixClassName={b('account')} />

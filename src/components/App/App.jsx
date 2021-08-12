@@ -11,12 +11,17 @@ import SavedMovies from '../SavedMovies/SavedMovies';
 
 function App() {
   const location = useLocation();
-  const isMobile = useMediaQuery({ query: '(max-width: 768px)' });
+  const isMobile = useMediaQuery({ query: '(max-width: 425px)' });
+  const isTablet = useMediaQuery({ query: '(max-width: 768px)' });
 
   return (
     <div className="page">
       {location.pathname !== '/signin' && (
-        <Header isLoggedIn={false} isMobile={isMobile} />
+        <Header
+          isLoggedIn={false}
+          isMobile={isMobile}
+          showHamburgerMenu={isTablet}
+        />
       )}
       <main className="content">
         <Switch>

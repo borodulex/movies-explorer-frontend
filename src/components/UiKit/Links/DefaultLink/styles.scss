@@ -1,20 +1,6 @@
 .default-link {
   color: #000;
-  font-size: 14px;
-  line-height: 18px;
   text-decoration: none;
-
-  &_size {
-    &_small {
-      font-size: 12px;
-      line-height: 16px;
-    }
-
-    &_mobile {
-      font-size: 18px;
-      line-height: 22px;
-    }
-  }
 
   &_select {
     &_bold {

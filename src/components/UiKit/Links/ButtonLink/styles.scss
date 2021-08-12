@@ -2,12 +2,25 @@
   padding: 8px 20px;
   font-size: 12px;
   line-height: 16px;
+  border-radius: 3px;
 
   &_type {
     &_solid {
       color: #fff;
       background-color: #000;
-      border-radius: 3px;
+    }
+
+    &_outline {
+      color: #000;
+      background-color: transparent;
+      border: 1px solid #000;
+    }
+  }
+
+  &_size {
+    &_small {
+      padding: 7px 12px;
+      font-size: 10px;
     }
   }
 }

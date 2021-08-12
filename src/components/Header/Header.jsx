@@ -12,41 +12,37 @@ import IconButton from '../UiKit/Buttons/IconButton/IconButton';
 import Logo from '../UiKit/Logo/Logo';
 
 const Header = (props) => {
-  const { isLoggedIn, isMobile } = props;
-  const [isOpen, setIsOpen] = useState(false);
+  const { isLoggedIn, isMobile, showHamburgerMenu } = props;
+  const [isSideBarOpen, setIsSideBarOpen] = useState(false);
 
   const handleSideBarToggle = () => {
-    setIsOpen(!isOpen);
+    setIsSideBarOpen(!isSideBarOpen);
   };
 
   return (
     <header className="header">
       <Logo mixClass="header__logo" />
-      {!isMobile && isLoggedIn && (
+      {!showHamburgerMenu && isLoggedIn && (
         <Navigation
           className="header__navigation"
           listData={mainNavData}
-          isMobile={isMobile}
+          select={'bold'}
         />
       )}
       <div className="header__accessibility">
         {isLoggedIn ? (
-          isMobile ? (
+          showHamburgerMenu ? (
             <>
               <IconButton onClick={handleSideBarToggle}>
                 {iconHamburger}
               </IconButton>
-              <SideBar
-                isOpen={isOpen}
-                onClose={handleSideBarToggle}
-                isMobile={isMobile}
-              />
+              <SideBar visible={isSideBarOpen} onClose={handleSideBarToggle} />
             </>
           ) : (
             <AccountButton />
           )
         ) : (
-          <Accessibility />
+          <Accessibility isMobile={isMobile} />
         )}
       </div>
     </header>

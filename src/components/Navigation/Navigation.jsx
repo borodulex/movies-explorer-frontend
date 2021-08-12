@@ -5,23 +5,26 @@ import block from 'bem-cn';
 import DefaultAppLink from '../UiKit/Links/AppLink/DefaultAppLink/DefaultAppLink';
 
 function Navigation(props) {
-  const { listData, mixClass, vertical, isMobile, onClick } = props;
+  const { listData, mixClass, type, onClick } = props;
 
   const b = block('main-nav');
 
   return (
     <nav className={b.mix(mixClass)}>
-      <ul className={b('list', { vertical })}>
-        {listData.map((item, i) => {
+      <ul className={b('list', { vertical: type === 'sidebar' })}>
+        {listData.map((item) => {
           return (
-            <li className={b('item', { vertical })}>
+            <li
+              className={b('item', {
+                vertical: type === 'sidebar',
+                size: type === 'sidebar' && 'large',
+              })}
+            >
               <DefaultAppLink
                 exact
                 to={item.path}
-                className={b('link')}
-                activeClassName={b('link', { active: true })}
-                size={isMobile ? 'mobile' : ''}
-                select={isMobile ? 'underline' : 'bold'}
+                mixClassName={b('link')}
+                select={type === 'sidebar' ? 'underline' : 'bold'}
                 onClick={onClick}
               >
                 {item.name}

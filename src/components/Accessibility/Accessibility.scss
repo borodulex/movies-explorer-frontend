@@ -1,5 +1,23 @@
-.accessibility__link {
-  &:not(:last-of-type) {
-    margin-right: 30px;
+.accessibility {
+  &__link {
+    font-weight: 500;
+    font-size: 12px;
+    line-height: 16px;
+
+    &:not(:last-of-type) {
+      margin-right: 30px;
+    }
+  }
+}
+
+@media screen and (max-width: 425px) {
+  .accessibility {
+    &__link {
+      font-size: 10px;
+
+      &:not(:last-of-type) {
+        margin-right: 14px;
+      }
+    }
   }
 }
