@@ -1,0 +1,24 @@
+.header {
+  position: absolute;
+  top: 0;
+  right: 0;
+  left: 0;
+  display: grid;
+  grid-template-areas: 'logo navigation accessibility';
+  grid-template-columns: 1fr auto 1fr;
+  align-items: center;
+  max-width: 1140px;
+  min-height: 74px;
+  margin: 0 auto;
+  padding: 0 30px;
+
+  &__logo {
+    grid-area: logo;
+    justify-self: start;
+  }
+
+  &__accessibility {
+    grid-area: accessibility;
+    justify-self: end;
+  }
+}

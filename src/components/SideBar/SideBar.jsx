@@ -1,4 +1,4 @@
-import './SideBar.css';
+import './SideBar.scss';
 
 import block from 'bem-cn';
 import { motion } from 'framer-motion';

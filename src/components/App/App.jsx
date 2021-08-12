@@ -16,7 +16,7 @@ function App() {
   return (
     <div className="page">
       {location.pathname !== '/signin' && (
-        <Header isLoggedIn={true} isMobile={isMobile} />
+        <Header isLoggedIn={false} isMobile={isMobile} />
       )}
       <main className="content">
         <Switch>

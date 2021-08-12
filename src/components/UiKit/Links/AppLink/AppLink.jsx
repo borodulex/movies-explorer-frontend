@@ -1,4 +1,4 @@
-import '../Link/styles.css';
+import '../Link/styles.scss';
 
 import block from 'bem-cn';
 import { NavLink } from 'react-router-dom';

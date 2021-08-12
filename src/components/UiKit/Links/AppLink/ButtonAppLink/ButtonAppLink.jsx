@@ -1,4 +1,4 @@
-import '../../ButtonLink/styles.css';
+import '../../ButtonLink/styles.scss';
 
 import block from 'bem-cn';
 

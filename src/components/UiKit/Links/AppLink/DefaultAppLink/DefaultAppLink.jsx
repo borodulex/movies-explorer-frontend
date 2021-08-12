@@ -1,4 +1,4 @@
-import '../../DefaultLink/styles.css';
+import '../../DefaultLink/styles.scss';
 
 import block from 'bem-cn';
 

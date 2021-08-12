@@ -1,0 +1,11 @@
+.button-link {
+  padding: 8px 20px;
+
+  &_type {
+    &_solid {
+      color: #fff;
+      background-color: #000;
+      border-radius: 3px;
+    }
+  }
+}

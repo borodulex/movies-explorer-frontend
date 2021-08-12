@@ -8,10 +8,10 @@
   background: transparent;
   border: 0;
   border-radius: 50%;
-}
 
-.icon-button:hover {
-  cursor: pointer;
-  opacity: 0.8;
-  transition: opacity 0.1s ease-out;
+  &:hover {
+    cursor: pointer;
+    opacity: 0.8;
+    transition: opacity 0.1s ease-out;
+  }
 }

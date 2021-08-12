@@ -1,4 +1,4 @@
-import './Navigation.css';
+import './Navigation.scss';
 
 import block from 'bem-cn';
 

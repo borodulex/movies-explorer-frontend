@@ -1,4 +1,4 @@
-import './IconButton.css';
+import './IconButton.scss';
 
 import block from 'bem-cn';
 

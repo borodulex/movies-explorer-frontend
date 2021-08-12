@@ -1,4 +1,4 @@
-import './Accessibility.css';
+import './Accessibility.scss';
 
 import block from 'bem-cn';
 
