@@ -1,3 +1,4 @@
+import AboutMe from './AboutMe/AboutMe';
 import AboutProject from './AboutProject/AboutProject';
 import Promo from './Promo/Promo';
 import Techs from './Techs/Techs';
@@ -8,6 +9,7 @@ const Main = () => {
       <Promo />
       <AboutProject />
       <Techs />
+      <AboutMe />
     </div>
   );
 };
