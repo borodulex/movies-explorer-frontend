@@ -72,6 +72,7 @@
   .about-project {
     &__container {
       padding-top: 90px;
+      padding-bottom: 85px;
     }
 
     &__column {
@@ -93,7 +94,7 @@
 @media screen and (max-width: 425px) {
   .about-project {
     &__container {
-      padding: 70px 18px;
+      padding: 70px 18px 60px;
     }
 
     &__columns {

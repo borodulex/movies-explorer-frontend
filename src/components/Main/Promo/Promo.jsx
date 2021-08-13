@@ -2,8 +2,8 @@ import './Promo.scss';
 
 import block from 'bem-cn';
 
-import promoIllustration from '../../images/promo-illustration.svg';
-import ButtonRegularLink from '../UiKit/Links/RegularLink/ButtonRegularLink/ButtonRegularLink';
+import promoIllustration from '../../../images/promo-illustration.svg';
+import ButtonRegularLink from '../../UiKit/Links/RegularLink/ButtonRegularLink/ButtonRegularLink';
 
 const Promo = () => {
   const b = block('promo');

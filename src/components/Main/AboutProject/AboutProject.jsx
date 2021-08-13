@@ -2,7 +2,7 @@ import './AboutProject.scss';
 
 import block from 'bem-cn';
 
-import SectionHeading from '../SectionHeading/SectionHeading';
+import SectionHeading from '../../SectionHeading/SectionHeading';
 
 const AboutProject = () => {
   const b = block('about-project');
