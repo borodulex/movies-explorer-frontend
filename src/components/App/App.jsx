@@ -1,6 +1,7 @@
 import { useMediaQuery } from 'react-responsive';
 import { Route, Switch, useLocation } from 'react-router-dom';
 
+import Footer from '../Footer/Footer';
 import Header from '../Header/Header';
 import Login from '../Login/Login';
 import Main from '../Main/Main';
@@ -45,6 +46,7 @@ function App() {
           </Route>
         </Switch>
       </main>
+      <Footer />
     </div>
   );
 }
