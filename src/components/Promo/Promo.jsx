@@ -9,7 +9,7 @@ const Promo = () => {
   const b = block('promo');
 
   return (
-    <div className={b()}>
+    <section className={b()}>
       <div className={b('container')}>
         <div className={b('text')}>
           <h1 className={b('title')}>
@@ -18,7 +18,11 @@ const Promo = () => {
           <p className={b('subtitle')}>
             Листайте ниже, чтобы узнать больше про этот проект и его создателя.
           </p>
-          <ButtonRegularLink href="#" type="outline" mixClassName={b('button')}>
+          <ButtonRegularLink
+            href="#about-project"
+            type="outline"
+            mixClassName={b('button')}
+          >
             Узнать больше
           </ButtonRegularLink>
         </div>
@@ -28,7 +32,7 @@ const Promo = () => {
           alt='Глобус "WEB"'
         />
       </div>
-    </div>
+    </section>
   );
 };
 

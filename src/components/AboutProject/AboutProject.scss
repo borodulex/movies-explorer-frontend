@@ -1,0 +1,143 @@
+.about-project {
+  &__container {
+    max-width: 1140px;
+    margin: 0 auto;
+    padding: 110px 50px;
+  }
+
+  &__columns {
+    display: flex;
+    margin: 70px 0 0;
+  }
+
+  &__column {
+    margin-right: 40px;
+
+    &:last-child {
+      margin-right: 0;
+    }
+  }
+
+  &__title {
+    margin: 0;
+    font-weight: normal;
+    font-size: 20px;
+    line-height: 24px;
+    letter-spacing: -0.04em;
+  }
+
+  &__desc {
+    margin: 26px 0 0;
+    font-size: 14px;
+    line-height: 20px;
+  }
+
+  &__steps {
+    display: grid;
+    grid-template-rows: repeat(2, 36px);
+    grid-template-columns: 1fr 4fr;
+    margin-top: 110px;
+  }
+
+  &__section {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 14px;
+    line-height: 17px;
+
+    &_type {
+      &_solid {
+        color: #fff;
+        background-color: #000;
+      }
+
+      &_neutral {
+        color: #000;
+        background-color: #f2f2f2;
+      }
+
+      &_transparent {
+        color: #a0a0a0;
+        font-weight: 500;
+        font-size: 14px;
+        line-height: 17px;
+        background-color: transparent;
+      }
+    }
+  }
+}
+
+@media screen and (max-width: 768px) {
+  .about-project {
+    &__container {
+      padding-top: 90px;
+    }
+
+    &__column {
+      margin-right: 30px;
+    }
+
+    &__desc {
+      margin-top: 22px;
+      font-size: 12px;
+      line-height: 18px;
+    }
+
+    &__steps {
+      margin-top: 93px;
+    }
+  }
+}
+
+@media screen and (max-width: 425px) {
+  .about-project {
+    &__container {
+      padding: 70px 18px;
+    }
+
+    &__columns {
+      flex-direction: column;
+      margin-top: 60px;
+    }
+
+    &__title {
+      font-size: 18px;
+      line-height: 22px;
+    }
+
+    &__desc {
+      margin-top: 16px;
+      font-size: 11px;
+      line-height: 16px;
+    }
+
+    &__column {
+      margin-top: 56px;
+      margin-right: 0;
+
+      &:first-child {
+        margin-top: 0;
+      }
+    }
+
+    &__steps {
+      grid-template-rows: repeat(2, 35px);
+      grid-template-columns: 1fr 2fr;
+      margin-top: 60px;
+    }
+
+    &__section {
+      font-size: 11px;
+      line-height: 13px;
+
+      &_type {
+        &_transparent {
+          font-weight: normal;
+          font-size: 11px;
+          line-height: 13px;
+        }
+      }
+    }
+  }
+}
