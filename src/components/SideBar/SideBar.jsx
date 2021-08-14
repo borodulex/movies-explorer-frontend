@@ -57,9 +57,11 @@ const SideBar = (props) => {
         transition={animationTransition}
         className={b('container')}
       >
-        <IconButton mixClassName={b('button')} onClick={onClose}>
-          {iconClose}
-        </IconButton>
+        <IconButton
+          mixClassName={b('button')}
+          onClick={onClose}
+          iconSrc={iconClose}
+        />
         <Navigation
           mixClass={b('navigation')}
           type="sidebar"

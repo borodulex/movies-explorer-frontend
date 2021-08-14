@@ -19,7 +19,7 @@ function App() {
     <div className="page">
       {location.pathname !== '/signin' && (
         <Header
-          isLoggedIn={false}
+          isLoggedIn={true}
           isMobile={isMobile}
           showHamburgerMenu={isTablet}
         />

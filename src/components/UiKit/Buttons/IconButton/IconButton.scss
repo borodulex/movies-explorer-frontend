@@ -14,4 +14,22 @@
     opacity: 0.8;
     transition: opacity 0.1s ease-out;
   }
+
+  &_size {
+    &_medium {
+      padding: 14px;
+    }
+  }
+
+  &_type {
+    &_solid {
+      background-color: #000;
+    }
+  }
+
+  &_shape {
+    &_square {
+      border-radius: 8px;
+    }
+  }
 }
