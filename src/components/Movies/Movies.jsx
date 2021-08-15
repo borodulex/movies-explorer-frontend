@@ -12,7 +12,7 @@ const Movies = () => {
   return (
     <section className={b()}>
       <SearchForm />
-      <MoviesCardList cards={cardList} />
+      <MoviesCardList cards={cardList} isLoading={false} />
     </section>
   );
 };
