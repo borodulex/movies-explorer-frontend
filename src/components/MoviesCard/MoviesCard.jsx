@@ -6,7 +6,15 @@ import { useState } from 'react';
 import CardButton from '../UiKit/Buttons/CardButton/CardButton';
 
 const MoviesCard = (props) => {
-  const { image, name, duration, saved = false } = props;
+  const {
+    image,
+    name,
+    duration,
+    saved = false,
+    type,
+    onSave,
+    onDelete,
+  } = props;
 
   const [isShown, setIsShown] = useState(saved);
   const [isMovieSaved, setIsMovieSaved] = useState(saved);
@@ -17,6 +25,15 @@ const MoviesCard = (props) => {
     const hours = Math.floor(duration / 60);
     const minutes = duration % 60;
     return `${hours}ч ${minutes}м`;
+  };
+
+  const handleButtonClick = () => {
+    if (type === 'saved') {
+      onDelete && onDelete();
+    } else {
+      setIsMovieSaved(!isMovieSaved);
+      onSave && onSave();
+    }
   };
 
   return (
@@ -33,8 +50,10 @@ const MoviesCard = (props) => {
       {isShown && (
         <CardButton
           mixClassName={b('button')}
-          type={isMovieSaved ? 'checked' : 'unchecked'}
-          onClick={() => setIsMovieSaved(!isMovieSaved)}
+          type={
+            type === 'saved' ? 'remove' : isMovieSaved ? 'checked' : 'unchecked'
+          }
+          onClick={handleButtonClick}
         />
       )}
     </article>

@@ -7,7 +7,7 @@ import DefaultButton from '../UiKit/Buttons/DefaultButton/DefaultButton';
 import Preloader from '../UiKit/Preloader/Preloader';
 
 const MoviesCardList = (props) => {
-  const { cards, isLoading } = props;
+  const { cards, isLoading, type } = props;
 
   const b = block('movies-cards');
 
@@ -26,13 +26,16 @@ const MoviesCardList = (props) => {
                     name={card.nameRU}
                     duration={card.duration}
                     saved={card.saved}
+                    type={type}
                   />
                 </li>
               ))}
             </ul>
-            <DefaultButton type={'section'} mixClassName={b('button')}>
-              Ещё
-            </DefaultButton>
+            {cards.length >= 12 && (
+              <DefaultButton type={'section'} mixClassName={b('button')}>
+                Ещё
+              </DefaultButton>
+            )}
           </>
         )}
       </div>

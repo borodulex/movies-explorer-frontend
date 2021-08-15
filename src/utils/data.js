@@ -100,3 +100,21 @@ export const cardList = [
     duration: 77,
   },
 ];
+
+export const savedCardList = [
+  {
+    image: movie1,
+    nameRU: '33 слова о дизайне',
+    duration: 77,
+  },
+  {
+    image: movie2,
+    nameRU: 'Киноальманах «100 лет дизайна»',
+    duration: 77,
+  },
+  {
+    image: movie3,
+    nameRU: 'В погоне за Бенкси',
+    duration: 77,
+  },
+];

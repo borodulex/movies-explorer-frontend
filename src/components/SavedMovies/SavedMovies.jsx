@@ -1,7 +1,12 @@
+import { savedCardList } from '../../utils/data';
+import MoviesCardList from '../MoviesCardList/MoviesCardList';
+import SearchForm from '../SearchForm/SearchForm';
+
 const SavedMovies = () => {
   return (
     <div className="saved-movies">
-      <h1>Страница "Сохраненные фильмы"</h1>
+      <SearchForm />
+      <MoviesCardList cards={savedCardList} type="saved" />
     </div>
   );
 };
