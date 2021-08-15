@@ -2,6 +2,8 @@ import './Movies.scss';
 
 import block from 'bem-cn';
 
+import { cardList } from '../../utils/data.js';
+import MoviesCardList from '../MoviesCardList/MoviesCardList.jsx';
 import SearchForm from '../SearchForm/SearchForm';
 
 const Movies = () => {
@@ -10,6 +12,7 @@ const Movies = () => {
   return (
     <section className={b()}>
       <SearchForm />
+      <MoviesCardList cards={cardList} />
     </section>
   );
 };

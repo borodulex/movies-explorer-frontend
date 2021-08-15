@@ -1,0 +1,46 @@
+.card-button {
+  display: inline-flex;
+  align-content: center;
+  justify-content: center;
+  box-sizing: border-box;
+  padding: 0;
+  background-color: #f9f9f9;
+  border: 0;
+  border-radius: 30px;
+
+  &:hover {
+    cursor: pointer;
+    opacity: 0.9;
+    transition: opacity 0.1s ease-out;
+  }
+
+  &_type {
+    &_unchecked {
+      padding: 6px 7px;
+      font-size: 10px;
+      line-height: 9px;
+
+      &::before {
+        content: 'Сохранить';
+      }
+    }
+
+    &_checked {
+      width: 21px;
+      height: 21px;
+      background-color: #ff3055;
+      background-image: url('../../../../images/icon-check.svg');
+      background-repeat: no-repeat;
+      background-position: center;
+    }
+
+    &_close {
+      width: 21px;
+      height: 21px;
+      background-color: #f9f9f9;
+      background-image: url('../../../../images/icon-close-xs.svg');
+      background-repeat: no-repeat;
+      background-position: center;
+    }
+  }
+}
