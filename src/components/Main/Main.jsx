@@ -6,13 +6,13 @@ import Techs from './Techs/Techs';
 
 const Main = () => {
   return (
-    <div className="landing">
+    <>
       <Promo />
       <AboutProject />
       <Techs />
       <AboutMe />
       <Portfolio />
-    </div>
+    </>
   );
 };
 

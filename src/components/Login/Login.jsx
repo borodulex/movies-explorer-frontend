@@ -11,8 +11,8 @@ const Login = () => {
   const b = block('login');
 
   return (
-    <main className={b()}>
-      <section className={b('container')}>
+    <section className={b()}>
+      <div className={b('container')}>
         <Logo className={b('logo')} />
         <h1 className={b('title')}>Рады видеть!</h1>
         <form className={b('form')} name="login" noValidate>
@@ -40,8 +40,8 @@ const Login = () => {
             </DefaultAppLink>
           </div>
         </form>
-      </section>
-    </main>
+      </div>
+    </section>
   );
 };
 
