@@ -17,8 +17,8 @@ const SearchForm = () => {
   return (
     <section className={b()}>
       <div className={b('container')}>
-        <div className={b('field')}>
-          <input className={b('input')} placeholder="Фильм" />
+        <form className={b('field')} noValidate>
+          <input className={b('input')} type="text" placeholder="Фильм" />
           <IconButton
             mixClassName={b('button')}
             iconSrc={iconSearch}
@@ -26,7 +26,7 @@ const SearchForm = () => {
             type={'solid'}
             shape={'square'}
           />
-        </div>
+        </form>
         <div className={b('shorts')}>
           <FilterSwitch
             mixClassName={b('switch')}

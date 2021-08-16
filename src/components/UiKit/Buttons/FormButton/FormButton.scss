@@ -1,0 +1,19 @@
+.form-button {
+  width: 100%;
+  padding: 14px;
+  color: #fff;
+  font-weight: 500;
+  font-size: 14px;
+  line-height: 17px;
+  text-align: center;
+  background-color: #000;
+  border-radius: 3px;
+}
+
+@media screen and (max-width: 425px) {
+  .form-button {
+    padding: 15px;
+    font-size: 12px;
+    line-height: 15px;
+  }
+}
