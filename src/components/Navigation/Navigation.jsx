@@ -19,6 +19,7 @@ function Navigation(props) {
                 vertical: type === 'sidebar',
                 size: type === 'sidebar' && 'large',
               })}
+              key={item.name}
             >
               <DefaultAppLink
                 exact

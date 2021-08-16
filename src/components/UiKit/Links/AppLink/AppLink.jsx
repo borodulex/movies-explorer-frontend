@@ -12,8 +12,8 @@ const AppLink = (props) => {
     <NavLink
       exact={exact}
       to={to}
-      className={b.mix(mixClassName)}
-      activeClassName={activeClassName}
+      className={String(b.mix(mixClassName))}
+      activeClassName={String(activeClassName)}
       onClick={onClick}
     >
       {children}

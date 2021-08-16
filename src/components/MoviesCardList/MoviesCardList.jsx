@@ -20,7 +20,7 @@ const MoviesCardList = (props) => {
           <>
             <ul className={b('list')}>
               {cards.map((card) => (
-                <li className={b('item')}>
+                <li className={b('item')} key={card.nameRU}>
                   <MoviesCard
                     image={card.image}
                     name={card.nameRU}
