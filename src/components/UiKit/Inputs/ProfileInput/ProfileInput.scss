@@ -1,0 +1,21 @@
+.profile-input {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  font-weight: 500;
+  font-size: 11px;
+  line-height: 13px;
+
+  &__field {
+    text-align: right;
+    border: 0;
+
+    &:focus {
+      outline: none;
+    }
+
+    &:disabled {
+      color: #000;
+    }
+  }
+}

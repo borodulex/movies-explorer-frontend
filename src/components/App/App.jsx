@@ -15,13 +15,14 @@ function App() {
   const isMobile = useMediaQuery({ query: '(max-width: 425px)' });
   const isTablet = useMediaQuery({ query: '(max-width: 768px)' });
 
-  const authPaths = ['/signin', '/signup'];
+  const headerExcludePaths = ['/signin', '/signup'];
+  const footerExcludePaths = ['/signin', '/signup', '/profile'];
 
   return (
     <div className="page">
-      {!authPaths.includes(location.pathname) && (
+      {!headerExcludePaths.includes(location.pathname) && (
         <Header
-          isLoggedIn={false}
+          isLoggedIn={true}
           isMobile={isMobile}
           showHamburgerMenu={isTablet}
         />
@@ -48,7 +49,7 @@ function App() {
           </Route>
         </Switch>
       </main>
-      {!authPaths.includes(location.pathname) && <Footer />}
+      {!footerExcludePaths.includes(location.pathname) && <Footer />}
     </div>
   );
 }
