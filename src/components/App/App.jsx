@@ -6,6 +6,7 @@ import Header from '../Header/Header';
 import Login from '../Login/Login';
 import Main from '../Main/Main';
 import Movies from '../Movies/Movies';
+import NotFound from '../NotFound/NotFound';
 import Profile from '../Profile/Profile';
 import Register from '../Register/Register';
 import SavedMovies from '../SavedMovies/SavedMovies';
@@ -15,12 +16,12 @@ function App() {
   const isMobile = useMediaQuery({ query: '(max-width: 425px)' });
   const isTablet = useMediaQuery({ query: '(max-width: 768px)' });
 
-  const headerExcludePaths = ['/signin', '/signup'];
-  const footerExcludePaths = ['/signin', '/signup', '/profile'];
+  const headerIncludedPaths = ['/', '/movies', '/saved-movies', '/profile'];
+  const footerIncludedPaths = ['/', '/movies', '/saved-movies'];
 
   return (
     <div className="page">
-      {!headerExcludePaths.includes(location.pathname) && (
+      {headerIncludedPaths.includes(location.pathname) && (
         <Header
           isLoggedIn={true}
           isMobile={isMobile}
@@ -47,9 +48,12 @@ function App() {
           <Route path="/signup">
             <Register />
           </Route>
+          <Route>
+            <NotFound />
+          </Route>
         </Switch>
       </main>
-      {!footerExcludePaths.includes(location.pathname) && <Footer />}
+      {footerIncludedPaths.includes(location.pathname) && <Footer />}
     </div>
   );
 }
