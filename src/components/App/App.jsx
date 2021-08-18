@@ -24,7 +24,7 @@ function App() {
 
   const handleFakeLogin = () => {
     setIsLoggedIn(true);
-    history.push('/');
+    history.push('/movies');
   };
 
   const handleFakeLogout = () => {
