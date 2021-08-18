@@ -4,7 +4,7 @@ import block from 'bem-cn';
 
 import FormButton from '../UiKit/Buttons/FormButton/FormButton';
 import AuthInput from '../UiKit/Inputs/AuthInput/AuthInput';
-import DefaultAppLink from '../UiKit/Links/AppLink/DefaultAppLink/DefaultAppLink';
+import AppLink from '../UiKit/Links/AppLink/AppLink';
 import Logo from '../UiKit/Logo/Logo';
 
 const Register = () => {
@@ -43,9 +43,9 @@ const Register = () => {
           <FormButton mixClassName={b('button')}>Зарегистрироваться</FormButton>
           <div className={b('caption')}>
             <p className={b('question')}>Уже зарегистрированы?</p>
-            <DefaultAppLink mixClassName={b('link')} to="/signin">
+            <AppLink mixClassName={b('link')} to="/signin">
               Войти
-            </DefaultAppLink>
+            </AppLink>
           </div>
         </form>
       </div>

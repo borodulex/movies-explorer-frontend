@@ -13,7 +13,6 @@ import SavedMovies from '../SavedMovies/SavedMovies';
 
 function App() {
   const location = useLocation();
-  const isMobile = useMediaQuery({ query: '(max-width: 425px)' });
   const isTablet = useMediaQuery({ query: '(max-width: 768px)' });
 
   const headerIncludedPaths = ['/', '/movies', '/saved-movies', '/profile'];
@@ -22,11 +21,7 @@ function App() {
   return (
     <div className="page">
       {headerIncludedPaths.includes(location.pathname) && (
-        <Header
-          isLoggedIn={true}
-          isMobile={isMobile}
-          showHamburgerMenu={isTablet}
-        />
+        <Header isLoggedIn={true} showHamburgerMenu={isTablet} />
       )}
       <main className="content">
         <Switch>

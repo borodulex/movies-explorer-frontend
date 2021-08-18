@@ -21,10 +21,21 @@
     grid-area: accessibility;
     justify-self: end;
   }
+
+  &__profile-button {
+    font-weight: 500;
+    font-size: 14px;
+    line-height: 16px;
+  }
 }
 
 @media screen and (max-width: 425px) {
   .header {
     padding: 0 15px;
+
+    &__hamburger-button {
+      width: 40px;
+      height: 43px;
+    }
   }
 }

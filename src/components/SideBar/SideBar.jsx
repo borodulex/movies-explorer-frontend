@@ -4,10 +4,11 @@ import block from 'bem-cn';
 import { motion } from 'framer-motion';
 
 import iconClose from '../../images/icon-close.svg';
+import iconProfile from '../../images/icon-profile.svg';
 import { sideBarNavData } from '../../utils/data';
-import AccountButton from '../AccountButton/AccountButton';
 import Navigation from '../Navigation/Navigation';
 import IconButton from '../UiKit/Buttons/IconButton/IconButton';
+import AppLink from '../UiKit/Links/AppLink/AppLink';
 
 const SideBar = (props) => {
   const { visible, onClose } = props;
@@ -68,7 +69,13 @@ const SideBar = (props) => {
           listData={sideBarNavData}
           onClick={onClose}
         />
-        <AccountButton mixClassName={b('account')} />
+        <AppLink
+          mixClassName={b('profile-button')}
+          to={'/profile'}
+          icon={iconProfile}
+        >
+          Аккаунт
+        </AppLink>
       </motion.div>
     </div>
   );

@@ -2,7 +2,7 @@ import './Navigation.scss';
 
 import block from 'bem-cn';
 
-import DefaultAppLink from '../UiKit/Links/AppLink/DefaultAppLink/DefaultAppLink';
+import AppLink from '../UiKit/Links/AppLink/AppLink';
 
 function Navigation(props) {
   const { listData, mixClass, type, onClick } = props;
@@ -21,15 +21,15 @@ function Navigation(props) {
               })}
               key={item.name}
             >
-              <DefaultAppLink
+              <AppLink
                 exact
                 to={item.path}
                 mixClassName={b('link')}
-                select={type === 'sidebar' ? 'underline' : 'bold'}
+                active={type === 'sidebar' ? 'underline' : 'bold'}
                 onClick={onClick}
               >
                 {item.name}
-              </DefaultAppLink>
+              </AppLink>
             </li>
           );
         })}

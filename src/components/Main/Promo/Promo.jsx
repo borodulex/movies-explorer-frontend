@@ -3,7 +3,7 @@ import './Promo.scss';
 import block from 'bem-cn';
 
 import promoIllustration from '../../../images/promo-illustration.svg';
-import ButtonRegularLink from '../../UiKit/Links/RegularLink/ButtonRegularLink/ButtonRegularLink';
+import RegularLink from '../../UiKit/Links/RegularLink/RegularLink';
 
 const Promo = () => {
   const b = block('promo');
@@ -18,13 +18,13 @@ const Promo = () => {
           <p className={b('subtitle')}>
             Листайте ниже, чтобы узнать больше про этот проект и его создателя.
           </p>
-          <ButtonRegularLink
-            href="#about-project"
-            type="outline"
+          <RegularLink
             mixClassName={b('button')}
+            href="#about-project"
+            button="outline"
           >
             Узнать больше
-          </ButtonRegularLink>
+          </RegularLink>
         </div>
         <img
           className={b('illustration')}

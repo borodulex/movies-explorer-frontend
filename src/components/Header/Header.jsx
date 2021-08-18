@@ -4,16 +4,17 @@ import block from 'bem-cn';
 import { useState } from 'react';
 
 import iconHamburger from '../../images/icon-hamburger.svg';
+import iconProfile from '../../images/icon-profile.svg';
 import { mainNavData } from '../../utils/data';
 import Accessibility from '../Accessibility/Accessibility';
-import AccountButton from '../AccountButton/AccountButton';
 import Navigation from '../Navigation/Navigation';
 import SideBar from '../SideBar/SideBar';
 import IconButton from '../UiKit/Buttons/IconButton/IconButton';
+import AppLink from '../UiKit/Links/AppLink/AppLink';
 import Logo from '../UiKit/Logo/Logo';
 
 const Header = (props) => {
-  const { isLoggedIn, isMobile, showHamburgerMenu } = props;
+  const { isLoggedIn, showHamburgerMenu } = props;
   const [isSideBarOpen, setIsSideBarOpen] = useState(false);
 
   const b = block('header');
@@ -37,16 +38,23 @@ const Header = (props) => {
           showHamburgerMenu ? (
             <>
               <IconButton
-                onClick={handleSideBarToggle}
+                mixClassName={b('hamburger-button')}
                 iconSrc={iconHamburger}
+                onClick={handleSideBarToggle}
               />
               <SideBar visible={isSideBarOpen} onClose={handleSideBarToggle} />
             </>
           ) : (
-            <AccountButton />
+            <AppLink
+              mixClassName={b('profile-button')}
+              to="/profile"
+              icon={iconProfile}
+            >
+              Аккаунт
+            </AppLink>
           )
         ) : (
-          <Accessibility isMobile={isMobile} />
+          <Accessibility />
         )}
       </div>
     </header>
