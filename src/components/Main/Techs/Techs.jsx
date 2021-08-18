@@ -2,7 +2,7 @@ import './Techs.scss';
 
 import block from 'bem-cn';
 
-import SectionHeading from '../../SectionHeading/SectionHeading';
+import SectionHeading from '../../UiKit/SectionHeading/SectionHeading';
 
 const Techs = () => {
   const b = block('techs');
