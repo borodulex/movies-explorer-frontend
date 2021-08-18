@@ -73,6 +73,7 @@ const SideBar = (props) => {
           mixClassName={b('profile-button')}
           to={'/profile'}
           icon={iconProfile}
+          onClick={onClose}
         >
           Аккаунт
         </AppLink>
