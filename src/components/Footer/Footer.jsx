@@ -19,7 +19,7 @@ const Footer = () => {
             <li className={b('item')}>
               <RegularLink
                 mixClassName={b('link')}
-                href={'#'}
+                href="https://practicum.yandex.ru"
                 target="_blank"
                 rel="noopener noreferrer"
               >
@@ -29,7 +29,7 @@ const Footer = () => {
             <li className={b('item')}>
               <RegularLink
                 mixClassName={b('link')}
-                href={'#'}
+                href="https://github.com"
                 target="_blank"
                 rel="noopener noreferrer"
               >
@@ -39,7 +39,7 @@ const Footer = () => {
             <li className={b('item')}>
               <RegularLink
                 mixClassName={b('link')}
-                href={'#'}
+                href="https://www.facebook.com"
                 target="_blank"
                 rel="noopener noreferrer"
               >

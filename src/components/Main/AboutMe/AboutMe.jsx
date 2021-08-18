@@ -25,12 +25,22 @@ const AboutMe = () => {
             </p>
             <ul className={b('social-links')}>
               <li className={b('social-link')}>
-                <RegularLink href={'#'} mixClassName={b('link')}>
+                <RegularLink
+                  mixClassName={b('link')}
+                  href="https://www.facebook.com"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
                   Facebook
                 </RegularLink>
               </li>
               <li className={b('social-link')}>
-                <RegularLink href={'#'} mixClassName={b('link')}>
+                <RegularLink
+                  mixClassName={b('link')}
+                  href="https://github.com"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
                   Github
                 </RegularLink>
               </li>
