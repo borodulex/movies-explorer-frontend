@@ -33,12 +33,12 @@ const Header = (props) => {
           select={'bold'}
         />
       )}
-      <div className={b('accessibility')}>
-        {isLoggedIn ? (
-          showHamburgerMenu ? (
+      {isLoggedIn ? (
+        <>
+          {showHamburgerMenu ? (
             <>
               <IconButton
-                mixClassName={b('hamburger-button')}
+                mixClassName={b('hamburger-button').mix(b('accessibility'))}
                 iconSrc={iconHamburger}
                 onClick={handleSideBarToggle}
               />
@@ -46,17 +46,17 @@ const Header = (props) => {
             </>
           ) : (
             <AppLink
-              mixClassName={b('profile-button')}
+              mixClassName={b('profile-button').mix(b('accessibility'))}
               to="/profile"
               icon={iconProfile}
             >
               Аккаунт
             </AppLink>
-          )
-        ) : (
-          <Accessibility />
-        )}
-      </div>
+          )}
+        </>
+      ) : (
+        <Accessibility mixClassName={b('accessibility')} />
+      )}
     </header>
   );
 };

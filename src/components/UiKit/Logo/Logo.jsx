@@ -9,7 +9,7 @@ const Logo = (props) => {
 
   return (
     <Link to="/" className={b.mix(mixClass)}>
-      <img src={logo} alt="Логотип" />
+      <img className={b('image')} src={logo} alt="Логотип" />
     </Link>
   );
 };
