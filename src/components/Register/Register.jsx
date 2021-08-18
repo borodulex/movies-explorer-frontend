@@ -1,6 +1,7 @@
 import './Register.scss';
 
 import block from 'bem-cn';
+import { useState } from 'react';
 
 import FormButton from '../UiKit/Buttons/FormButton/FormButton';
 import AuthInput from '../UiKit/Inputs/AuthInput/AuthInput';
@@ -10,6 +11,10 @@ import Logo from '../UiKit/Logo/Logo';
 const Register = () => {
   const b = block('register');
 
+  const [name, setName] = useState('Виталий');
+  const [email, setEmail] = useState('pochta@yandex.ru');
+  const [password, setPassword] = useState('sadfasdfassadfa');
+
   return (
     <section className={b()}>
       <form className={b('form')} name="register" noValidate>
@@ -18,25 +23,31 @@ const Register = () => {
         <fieldset className={b('inputs')}>
           <AuthInput
             mixClassName={b('input')}
+            value={name}
             type="text"
             label="Имя"
-            id={'name'}
+            id="name"
             required
+            onChange={(e) => setName(e.target.value)}
           />
           <AuthInput
             mixClassName={b('input')}
+            value={email}
             type="email"
             label="E-mail"
-            id={'email'}
+            id="email"
             required
+            onChange={(e) => setEmail(e.target.value)}
           />
           <AuthInput
             mixClassName={b('input')}
+            value={password}
             type="password"
             label="Пароль"
-            id={'password'}
+            id="password"
             activeError
             required
+            onChange={(e) => setPassword(e.target.value)}
           />
         </fieldset>
         <FormButton mixClassName={b('button')}>Зарегистрироваться</FormButton>
