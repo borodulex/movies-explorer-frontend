@@ -4,6 +4,7 @@
 
 - IP-адрес сервера: 178.154.196.18
 - Домен: https://movies-explorer-borodulex.nomoredomains.club
+- Макет Figma: https://www.figma.com/file/qzNTawB5n5EEmTZ6HZ39DJ/Diploma-borodulex?node-id=891%3A3857
 
 ## О проекте
 
