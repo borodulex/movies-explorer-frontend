@@ -3,8 +3,8 @@ import './AboutMe.scss';
 import block from 'bem-cn';
 
 import studentPortrait from '../../../images/portrait.jpg';
-import SectionHeading from '../../SectionHeading/SectionHeading';
 import RegularLink from '../../UiKit/Links/RegularLink/RegularLink';
+import SectionHeading from '../../UiKit/SectionHeading/SectionHeading';
 
 const AboutMe = () => {
   const b = block('about-me');
