@@ -1,5 +1,6 @@
+import { useState } from 'react';
 import { useMediaQuery } from 'react-responsive';
-import { Route, Switch, useLocation } from 'react-router-dom';
+import { Route, Switch, useHistory, useLocation } from 'react-router-dom';
 
 import Footer from '../Footer/Footer';
 import Header from '../Header/Header';
@@ -13,15 +14,28 @@ import SavedMovies from '../SavedMovies/SavedMovies';
 
 function App() {
   const location = useLocation();
+  const history = useHistory();
   const isTablet = useMediaQuery({ query: '(max-width: 768px)' });
 
   const headerIncludedPaths = ['/', '/movies', '/saved-movies', '/profile'];
   const footerIncludedPaths = ['/', '/movies', '/saved-movies'];
 
+  const [isLoggedIn, setIsLoggedIn] = useState();
+
+  const handleFakeLogin = () => {
+    setIsLoggedIn(true);
+    history.push('/');
+  };
+
+  const handleFakeLogout = () => {
+    setIsLoggedIn(false);
+    history.push('/');
+  };
+
   return (
     <div className="page">
       {headerIncludedPaths.includes(location.pathname) && (
-        <Header isLoggedIn={true} showHamburgerMenu={isTablet} />
+        <Header isLoggedIn={isLoggedIn} showHamburgerMenu={isTablet} />
       )}
       <main className="content">
         <Switch>
@@ -35,10 +49,10 @@ function App() {
             <SavedMovies />
           </Route>
           <Route path="/profile">
-            <Profile />
+            <Profile onLogout={handleFakeLogout} />
           </Route>
           <Route path="/signin">
-            <Login />
+            <Login onSubmit={handleFakeLogin} />
           </Route>
           <Route path="/signup">
             <Register />

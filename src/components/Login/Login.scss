@@ -1,6 +1,10 @@
 .login {
-  &__container {
+  &__form {
+    display: flex;
+    flex-direction: column;
+    box-sizing: border-box;
     max-width: 396px;
+    min-height: 560px;
     margin: 70px auto;
   }
 
@@ -28,7 +32,7 @@
   }
 
   &__button {
-    margin-top: 135px;
+    margin-top: auto;
   }
 
   &__caption {
@@ -52,8 +56,8 @@
 }
 
 @media screen and (max-width: 768px) {
-  .register {
-    &__container {
+  .login {
+    &__form {
       margin-top: 232px;
       margin-bottom: 232px;
     }
@@ -61,12 +65,12 @@
 }
 
 @media screen and (max-width: 425px) {
-  .register {
-    &__container {
-      display: flex;
-      flex-direction: column;
+  .login {
+    &__form {
       align-items: center;
-      margin: 56px 30px 30px;
+      min-height: 100vh;
+      margin: 0 30px;
+      padding: 56px 0 30px;
     }
 
     &__title {
@@ -74,16 +78,10 @@
       text-align: center;
     }
 
-    &__form {
-      align-self: stretch;
-    }
-
     &__inputs {
+      align-self: stretch;
       margin-top: 80px;
-    }
-
-    &__button {
-      margin-top: 243px;
+      margin-bottom: 80px;
     }
 
     &__caption {

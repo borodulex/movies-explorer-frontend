@@ -7,7 +7,9 @@ import FormButton from '../UiKit/Buttons/FormButton/FormButton';
 import LinkButton from '../UiKit/Buttons/LinkButton/LinkButton';
 import ProfileInput from '../UiKit/Inputs/ProfileInput/ProfileInput';
 
-const Profile = () => {
+const Profile = (props) => {
+  const { onLogout } = props;
+
   const b = block('profile');
 
   const [name, setName] = useState('Виталий');
@@ -88,6 +90,7 @@ const Profile = () => {
                 mixClassName={b('control')}
                 type="button"
                 theme="highlight"
+                onClick={onLogout}
               >
                 Выйти из аккаунта
               </LinkButton>

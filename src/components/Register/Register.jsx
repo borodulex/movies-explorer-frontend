@@ -12,43 +12,41 @@ const Register = () => {
 
   return (
     <section className={b()}>
-      <div className={b('container')}>
+      <form className={b('form')} name="register" noValidate>
         <Logo className={b('logo')} />
         <h1 className={b('title')}>Добро пожаловать!</h1>
-        <form className={b('form')} name="register" noValidate>
-          <fieldset className={b('inputs')}>
-            <AuthInput
-              mixClassName={b('input')}
-              type="text"
-              label="Имя"
-              id={'name'}
-              required
-            />
-            <AuthInput
-              mixClassName={b('input')}
-              type="email"
-              label="E-mail"
-              id={'email'}
-              required
-            />
-            <AuthInput
-              mixClassName={b('input')}
-              type="password"
-              label="Пароль"
-              id={'password'}
-              activeError
-              required
-            />
-          </fieldset>
-          <FormButton mixClassName={b('button')}>Зарегистрироваться</FormButton>
-          <div className={b('caption')}>
-            <p className={b('question')}>Уже зарегистрированы?</p>
-            <AppLink mixClassName={b('link')} to="/signin">
-              Войти
-            </AppLink>
-          </div>
-        </form>
-      </div>
+        <fieldset className={b('inputs')}>
+          <AuthInput
+            mixClassName={b('input')}
+            type="text"
+            label="Имя"
+            id={'name'}
+            required
+          />
+          <AuthInput
+            mixClassName={b('input')}
+            type="email"
+            label="E-mail"
+            id={'email'}
+            required
+          />
+          <AuthInput
+            mixClassName={b('input')}
+            type="password"
+            label="Пароль"
+            id={'password'}
+            activeError
+            required
+          />
+        </fieldset>
+        <FormButton mixClassName={b('button')}>Зарегистрироваться</FormButton>
+        <div className={b('caption')}>
+          <p className={b('question')}>Уже зарегистрированы?</p>
+          <AppLink mixClassName={b('link')} to="/signin">
+            Войти
+          </AppLink>
+        </div>
+      </form>
     </section>
   );
 };
