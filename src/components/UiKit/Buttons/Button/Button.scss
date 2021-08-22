@@ -1,0 +1,13 @@
+.button {
+  display: inline-flex;
+  align-content: center;
+  justify-content: center;
+  box-sizing: border-box;
+  border: 0;
+
+  &:hover {
+    cursor: pointer;
+    opacity: 0.8;
+    transition: opacity 0.1s ease-out;
+  }
+}

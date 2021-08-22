@@ -1,0 +1,50 @@
+.sidebar {
+  &__container {
+    position: fixed;
+    top: 0;
+    right: 0;
+    z-index: 99;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+    min-width: 320px;
+    max-width: 520px;
+    height: 100%;
+    background-color: #fff;
+  }
+
+  &__overlay {
+    position: fixed;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    background-color: #000;
+    opacity: 0.3;
+  }
+
+  &__button {
+    position: absolute;
+    top: 27px;
+    right: 27px;
+    width: fit-content;
+    margin: 0;
+    padding: 0;
+    background-color: transparent;
+    border: 0;
+  }
+
+  &__navigation {
+    margin-top: 160px;
+  }
+
+  &__profile-button {
+    margin-top: 84px;
+    margin-bottom: 92px;
+    font-weight: 500;
+    font-size: 14px;
+    line-height: 16px;
+  }
+}

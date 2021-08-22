@@ -1,0 +1,19 @@
+.link-button {
+  padding: 0;
+  font-size: 13px;
+  line-height: 16px;
+  background-color: transparent;
+
+  &_theme {
+    &_highlight {
+      color: #ff4062;
+    }
+  }
+}
+
+@media screen and (max-width: 425px) {
+  .link-button {
+    font-size: 12px;
+    line-height: 15px;
+  }
+}

@@ -1,0 +1,35 @@
+.form-button {
+  width: 100%;
+  padding: 14px;
+  color: #fff;
+  font-weight: 500;
+  font-size: 14px;
+  line-height: 17px;
+  text-align: center;
+  background-color: #000;
+  border-radius: 3px;
+
+  &_theme {
+    &_primary {
+      background-color: #3456f3;
+    }
+  }
+
+  &_disabled {
+    color: #c2c2c2;
+    background-color: #f8f8f8;
+
+    &:hover {
+      cursor: default;
+      opacity: 1;
+    }
+  }
+}
+
+@media screen and (max-width: 425px) {
+  .form-button {
+    padding: 15px;
+    font-size: 12px;
+    line-height: 15px;
+  }
+}
