@@ -18,7 +18,12 @@ const SearchForm = () => {
     <section className={b()}>
       <div className={b('container')}>
         <form className={b('field')} noValidate>
-          <input className={b('input')} type="text" placeholder="Фильм" />
+          <input
+            className={b('input')}
+            type="text"
+            placeholder="Фильм"
+            required
+          />
           <IconButton
             mixClassName={b('button')}
             iconSrc={iconSearch}
