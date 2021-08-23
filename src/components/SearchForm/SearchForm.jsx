@@ -13,16 +13,23 @@ const SearchForm = () => {
   const [isOn, setIsOn] = useState(false);
 
   const toggleSwitch = () => setIsOn(!isOn);
+  const handleSubmit = (e) => {
+    e.preventDefault();
+  };
 
   return (
     <section className={b()}>
       <div className={b('container')}>
-        <form className={b('field')} noValidate>
+        <form className={b('field')} onSubmit={handleSubmit} name="test">
           <input
             className={b('input')}
             type="text"
             placeholder="Фильм"
             required
+            onInvalid={(e) =>
+              e.target.setCustomValidity('Нужно ввести ключевое слово')
+            }
+            onInput={(e) => e.target.setCustomValidity('')}
           />
           <IconButton
             mixClassName={b('button')}

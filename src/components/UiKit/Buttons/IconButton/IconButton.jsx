@@ -10,6 +10,7 @@ const IconButton = (props) => {
   return (
     <button
       className={b({ size, type, shape }).mix(mixClassName)}
+      type="submit"
       onClick={onClick}
     >
       <img className={b('icon')} src={iconSrc} alt="Иконка" />
