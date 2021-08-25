@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react';
 
 import { MOVIES_API_BASE_URL } from '../../utils/config.js';
+import { removeMovie, saveMovie } from '../../utils/MainApi';
 import { getMovies } from '../../utils/MoviesApi.js';
 import MoviesCardList from '../MoviesCardList/MoviesCardList.jsx';
 import SearchForm from '../SearchForm/SearchForm';
@@ -15,10 +16,17 @@ const Movies = () => {
   const parseMoviesApiResponse = (data) => {
     return data.map((item) => {
       return {
-        image: MOVIES_API_BASE_URL + item.image.url,
-        nameEN: item.nameEN?.trim(),
-        nameRU: item.nameRU.trim(),
+        country: item.country,
+        director: item.director,
         duration: item.duration,
+        year: item.year,
+        description: item.description,
+        image: MOVIES_API_BASE_URL + item.image.url,
+        trailer: item.trailer,
+        thumbnail: MOVIES_API_BASE_URL + item.image.formats.thumbnail,
+        movieId: item.movieId,
+        nameRU: item.nameRU.trim(),
+        nameEN: item.nameEN?.trim(),
       };
     });
   };
@@ -38,6 +46,7 @@ const Movies = () => {
 
     getMovies()
       .then((movies) => {
+        console.log(movies);
         const parsedMovies = parseMoviesApiResponse(movies);
         const movieSearchResult = filterMovies(parsedMovies, query);
         localStorage.setItem('moviesQuery', query);
@@ -53,6 +62,29 @@ const Movies = () => {
         setIsRequestError(true);
         setIsLoading(false);
       });
+  };
+
+  const handleSaveClick = (card) => {
+    saveMovie(card)
+      .then((res) => {
+        const savedCard = { isSaved: true, _id: res._id, ...res };
+        setMoviesList((state) =>
+          state.map((item) =>
+            item.movieId === savedCard.movieId ? savedCard : item
+          )
+        );
+      })
+      .catch((error) => console.error(error));
+  };
+
+  const handleDeleteClick = (card) => {
+    removeMovie(card._id)
+      .then(() =>
+        setMoviesList((state) =>
+          state.map((item) => item.movieId !== card.movieId)
+        )
+      )
+      .catch((error) => console.error(error));
   };
 
   useEffect(() => {
@@ -78,6 +110,8 @@ const Movies = () => {
           cards={moviesList}
           isLoading={isLoading}
           isRequestError={isRequestError}
+          onSave={handleSaveClick}
+          onDelete={handleDeleteClick}
         />
       )}
     </>

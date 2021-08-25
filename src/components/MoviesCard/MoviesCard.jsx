@@ -6,20 +6,11 @@ import { useState } from 'react';
 import CardButton from '../UiKit/Buttons/CardButton/CardButton';
 
 const MoviesCard = (props) => {
-  const {
-    image,
-    name,
-    duration,
-    saved = false,
-    type,
-    onSave,
-    onDelete,
-  } = props;
-
-  const [isShown, setIsShown] = useState(saved);
-  const [isMovieSaved, setIsMovieSaved] = useState(saved);
+  const { card, isSaved = false, type, onSave, onDelete } = props;
 
   const b = block('movies-card');
+
+  const [isButtonVisible, setIsButtonVisible] = useState(isSaved);
 
   const convertDuration = (duration) => {
     const hours = Math.floor(duration / 60);
@@ -31,28 +22,29 @@ const MoviesCard = (props) => {
     if (type === 'saved') {
       onDelete && onDelete();
     } else {
-      setIsMovieSaved(!isMovieSaved);
-      onSave && onSave();
+      onSave && onSave(card);
     }
   };
 
   return (
     <article
       className={b()}
-      onMouseEnter={() => setIsShown(true)}
-      onMouseLeave={() => !isMovieSaved && setIsShown(false)}
+      onMouseEnter={() => setIsButtonVisible(true)}
+      onMouseLeave={() => !isSaved && setIsButtonVisible(false)}
     >
-      <img src={image} alt={`Карточка фильма ${name}`} className={b('image')} />
+      <img
+        src={card.image}
+        alt={`Карточка фильма ${card.nameRU}`}
+        className={b('image')}
+      />
       <div className={b('body')}>
-        <h3 className={b('title')}>{name}</h3>
-        <div className={b('duration')}>{convertDuration(duration)}</div>
+        <h3 className={b('title')}>{card.nameRU}</h3>
+        <div className={b('duration')}>{convertDuration(card.duration)}</div>
       </div>
-      {isShown && (
+      {isButtonVisible && (
         <CardButton
           mixClassName={b('button')}
-          type={
-            type === 'saved' ? 'remove' : isMovieSaved ? 'checked' : 'unchecked'
-          }
+          type={type === 'saved' ? 'remove' : isSaved ? 'checked' : 'unchecked'}
           onClick={handleButtonClick}
         />
       )}

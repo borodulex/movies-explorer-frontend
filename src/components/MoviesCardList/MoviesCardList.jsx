@@ -8,7 +8,7 @@ import DefaultButton from '../UiKit/Buttons/DefaultButton/DefaultButton';
 import Preloader from '../UiKit/Preloader/Preloader';
 
 const MoviesCardList = (props) => {
-  const { cards, isLoading, isRequestError, type } = props;
+  const { cards, isLoading, isRequestError, type, onSave, onDelete } = props;
 
   const b = block('movies-cards');
 
@@ -63,11 +63,11 @@ const MoviesCardList = (props) => {
                   {getCardsForRender(cards).map((card) => (
                     <li className={b('item')} key={card.nameRU}>
                       <MoviesCard
-                        image={card.image}
-                        name={card.nameRU}
-                        duration={card.duration}
-                        saved={card.saved}
+                        card={card}
+                        isSaved={card.isSaved}
                         type={type}
+                        onSave={onSave}
+                        onDelete={onDelete}
                       />
                     </li>
                   ))}
