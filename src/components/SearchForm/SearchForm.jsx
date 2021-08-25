@@ -7,25 +7,26 @@ import iconSearch from '../../images/icon-search.svg';
 import FilterSwitch from '../UiKit/Buttons/FilterSwitch/FilterSwitch';
 import IconButton from '../UiKit/Buttons/IconButton/IconButton';
 
-const SearchForm = () => {
+const SearchForm = (props) => {
+  const { value, onChange, onSubmit } = props;
+
   const b = block('search-form');
 
   const [isOn, setIsOn] = useState(false);
 
   const toggleSwitch = () => setIsOn(!isOn);
-  const handleSubmit = (e) => {
-    e.preventDefault();
-  };
 
   return (
     <section className={b()}>
       <div className={b('container')}>
-        <form className={b('field')} onSubmit={handleSubmit} name="test">
+        <form className={b('field')} onSubmit={onSubmit} name="test">
           <input
             className={b('input')}
+            value={value}
             type="text"
             placeholder="Фильм"
             required
+            onChange={onChange}
             onInvalid={(e) =>
               e.target.setCustomValidity('Нужно ввести ключевое слово')
             }
@@ -34,9 +35,10 @@ const SearchForm = () => {
           <IconButton
             mixClassName={b('button')}
             iconSrc={iconSearch}
-            size={'medium'}
-            type={'solid'}
-            shape={'square'}
+            type="submit"
+            size="medium"
+            background="solid"
+            shape="square"
           />
         </form>
         <div className={b('shorts')}>

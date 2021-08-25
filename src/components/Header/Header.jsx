@@ -14,7 +14,7 @@ import AppLink from '../UiKit/Links/AppLink/AppLink';
 import Logo from '../UiKit/Logo/Logo';
 
 const Header = (props) => {
-  const { isLoggedIn, showHamburgerMenu } = props;
+  const { mixClassName, isLoggedIn, showHamburgerMenu } = props;
   const [isSideBarOpen, setIsSideBarOpen] = useState(false);
 
   const b = block('header');
@@ -24,7 +24,7 @@ const Header = (props) => {
   };
 
   return (
-    <header className={b()}>
+    <header className={b.mix(mixClassName)}>
       <Logo mixClass={b('logo')} />
       {!showHamburgerMenu && isLoggedIn && (
         <Navigation

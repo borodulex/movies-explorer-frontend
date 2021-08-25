@@ -1,3 +1,6 @@
+import './App.scss';
+
+import block from 'bem-cn';
 import { useState } from 'react';
 import { useMediaQuery } from 'react-responsive';
 import { Route, Switch, useHistory, useLocation } from 'react-router-dom';
@@ -13,6 +16,8 @@ import Register from '../Register/Register';
 import SavedMovies from '../SavedMovies/SavedMovies';
 
 function App() {
+  const b = block('app');
+
   const location = useLocation();
   const history = useHistory();
   const isTablet = useMediaQuery({ query: '(max-width: 768px)' });
@@ -33,11 +38,15 @@ function App() {
   };
 
   return (
-    <div className="page">
+    <div className={b()}>
       {headerIncludedPaths.includes(location.pathname) && (
-        <Header isLoggedIn={isLoggedIn} showHamburgerMenu={isTablet} />
+        <Header
+          mixClassName={b('header')}
+          isLoggedIn={isLoggedIn}
+          showHamburgerMenu={isTablet}
+        />
       )}
-      <main className="content">
+      <main className={b('content')}>
         <Switch>
           <Route exact path="/">
             <Main />
@@ -62,7 +71,9 @@ function App() {
           </Route>
         </Switch>
       </main>
-      {footerIncludedPaths.includes(location.pathname) && <Footer />}
+      {footerIncludedPaths.includes(location.pathname) && (
+        <Footer mixClassName={b('footer')} />
+      )}
     </div>
   );
 }
