@@ -1,10 +1,13 @@
 import './App.scss';
 
 import block from 'bem-cn';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useMediaQuery } from 'react-responsive';
-import { Route, Switch, useHistory, useLocation } from 'react-router-dom';
+import { Route, Switch, useLocation } from 'react-router-dom';
 
+import { CurrentUserContext } from '../../contexts/currentUserContext';
+import { getBio } from '../../utils/MainApi';
+import { isObjEmpty } from '../../utils/utils';
 import Footer from '../Footer/Footer';
 import Header from '../Header/Header';
 import Login from '../Login/Login';
@@ -19,62 +22,67 @@ function App() {
   const b = block('app');
 
   const location = useLocation();
-  const history = useHistory();
   const isTablet = useMediaQuery({ query: '(max-width: 768px)' });
 
   const headerIncludedPaths = ['/', '/movies', '/saved-movies', '/profile'];
   const footerIncludedPaths = ['/', '/movies', '/saved-movies'];
 
-  const [isLoggedIn, setIsLoggedIn] = useState();
+  const [currentUser, setCurrentUser] = useState({});
 
-  const handleFakeLogin = () => {
-    setIsLoggedIn(true);
-    history.push('/movies');
+  const getCurrentUser = () => {
+    getBio()
+      .then((user) => {
+        setCurrentUser(user);
+      })
+      .catch((error) => console.log(error));
   };
 
-  const handleFakeLogout = () => {
-    setIsLoggedIn(false);
-    history.push('/');
-  };
+  useEffect(() => {
+    if (isObjEmpty(currentUser)) {
+      getCurrentUser();
+    }
+  }, [currentUser]);
 
   return (
-    <div className={b()}>
-      {headerIncludedPaths.includes(location.pathname) && (
-        <Header
-          mixClassName={b('header')}
-          isLoggedIn={isLoggedIn}
-          showHamburgerMenu={isTablet}
-        />
-      )}
-      <main className={b('content')}>
-        <Switch>
-          <Route exact path="/">
-            <Main />
-          </Route>
-          <Route path="/movies">
-            <Movies />
-          </Route>
-          <Route path="/saved-movies">
-            <SavedMovies />
-          </Route>
-          <Route path="/profile">
-            <Profile onLogout={handleFakeLogout} />
-          </Route>
-          <Route path="/signin">
-            <Login onSubmit={handleFakeLogin} />
-          </Route>
-          <Route path="/signup">
-            <Register />
-          </Route>
-          <Route>
-            <NotFound />
-          </Route>
-        </Switch>
-      </main>
-      {footerIncludedPaths.includes(location.pathname) && (
-        <Footer mixClassName={b('footer')} />
-      )}
-    </div>
+    <CurrentUserContext.Provider value={{ currentUser, setCurrentUser }}>
+      <div className={b()}>
+        {headerIncludedPaths.includes(location.pathname) && (
+          <Header
+            mixClassName={b('header')}
+            isLoggedIn={!isObjEmpty(currentUser)}
+            showHamburgerMenu={isTablet}
+          />
+        )}
+        <main className={b('content')}>
+          <Switch>
+            <Route exact path="/">
+              <Main />
+            </Route>
+            <Route path="/movies">
+              <Movies />
+            </Route>
+            <Route path="/saved-movies">
+              <SavedMovies />
+            </Route>
+            <Route path="/profile">
+              <Profile />
+            </Route>
+            <Route path="/signin">
+              <Login onSuccess={getCurrentUser} />
+            </Route>
+            <Route path="/signup">
+              <Register onSuccess={getCurrentUser} />
+            </Route>
+            <Route>
+              <NotFound />
+            </Route>
+          </Switch>
+        </main>
+        {footerIncludedPaths.includes(location.pathname) && (
+          <Footer mixClassName={b('footer')} />
+        )}
+      </div>
+    </CurrentUserContext.Provider>
   );
 }
 

@@ -5,7 +5,7 @@ import { motion } from 'framer-motion';
 
 import iconClose from '../../images/icon-close.svg';
 import iconProfile from '../../images/icon-profile.svg';
-import { sideBarNavData } from '../../utils/data';
+import { sideBarNavData } from '../../utils/consts';
 import Navigation from '../Navigation/Navigation';
 import IconButton from '../UiKit/Buttons/IconButton/IconButton';
 import AppLink from '../UiKit/Links/AppLink/AppLink';

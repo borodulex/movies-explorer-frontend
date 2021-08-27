@@ -91,11 +91,14 @@ const Movies = () => {
     const previousSessionCards = JSON.parse(
       localStorage.getItem('movieSearchResult') || '[]'
     );
-    const previousSessionQuery = localStorage.getItem('moviesQuery' || '');
 
-    setQuery(previousSessionQuery);
-    setMoviesList(previousSessionCards);
-    setIsQueryRequested(true);
+    if (previousSessionCards.length !== 0){
+      const previousSessionQuery = localStorage.getItem('moviesQuery' || '');
+
+      setMoviesList(previousSessionCards);
+      setQuery(previousSessionQuery);
+      setIsQueryRequested(true);
+    }
   }, []);
 
   return (

@@ -5,7 +5,7 @@ import { useState } from 'react';
 
 import iconHamburger from '../../images/icon-hamburger.svg';
 import iconProfile from '../../images/icon-profile.svg';
-import { mainNavData } from '../../utils/data';
+import { mainNavData } from '../../utils/consts';
 import Accessibility from '../Accessibility/Accessibility';
 import Navigation from '../Navigation/Navigation';
 import SideBar from '../SideBar/SideBar';

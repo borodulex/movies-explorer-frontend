@@ -1,15 +1,15 @@
-const BASE_URL = 'https://movies-explorer-borodulex.nomoredomains.club/api';
+import { MAIN_API_BASE_URL } from './config';
 
 const config = {
   credentials: 'include',
-  header: { 'Content-Type': 'application/json' },
+  headers: { 'Content-Type': 'application/json' },
 };
 
-const checkResponse = (res) =>
-  res.ok ? res.json() : res.json().then((json) => Promise.reject(json));
+const checkResponse = (res) => (res.ok ? res.json() : Promise.reject(res));
 
 export const register = (name, email, password) => {
-  return fetch(`${BASE_URL}/signup`, {
+  console.log({ name, email, password });
+  return fetch(`${MAIN_API_BASE_URL}/signup`, {
     ...config,
     method: 'POST',
     body: JSON.stringify({ name, email, password }),
@@ -17,7 +17,7 @@ export const register = (name, email, password) => {
 };
 
 export const authorize = (email, password) => {
-  return fetch(`${BASE_URL}/signin`, {
+  return fetch(`${MAIN_API_BASE_URL}/signin`, {
     ...config,
     method: 'POST',
     body: JSON.stringify({ email, password }),
@@ -25,21 +25,21 @@ export const authorize = (email, password) => {
 };
 
 export const signout = () => {
-  return fetch(`${BASE_URL}/signout`, {
+  return fetch(`${MAIN_API_BASE_URL}/signout`, {
     ...config,
-    method: 'GET',
+    method: 'POST',
   }).then(checkResponse);
 };
 
 export const getBio = () => {
-  return fetch(`${BASE_URL}/users/me`, {
+  return fetch(`${MAIN_API_BASE_URL}/users/me`, {
     ...config,
     method: 'GET',
   }).then(checkResponse);
 };
 
 export const updateBio = (name, email) => {
-  return fetch(`${BASE_URL}/users/me`, {
+  return fetch(`${MAIN_API_BASE_URL}/users/me`, {
     ...config,
     method: 'PATCH',
     body: JSON.stringify({ name, email }),
@@ -47,7 +47,7 @@ export const updateBio = (name, email) => {
 };
 
 export const getSavedMovies = () => {
-  return fetch(`${BASE_URL}/movies`, {
+  return fetch(`${MAIN_API_BASE_URL}/movies`, {
     ...config,
     method: 'GET',
   }).then(checkResponse);
@@ -66,7 +66,7 @@ export const saveMovie = (
   nameRU,
   nameEN
 ) => {
-  return fetch(`${BASE_URL}/movies`, {
+  return fetch(`${MAIN_API_BASE_URL}/movies`, {
     ...config,
     method: 'POST',
     body: JSON.stringify({
@@ -86,7 +86,7 @@ export const saveMovie = (
 };
 
 export const removeMovie = (movieId) => {
-  return fetch(`${BASE_URL}/${movieId}`, {
+  return fetch(`${MAIN_API_BASE_URL}/${movieId}`, {
     ...config,
     method: 'DELETE',
   }).then(checkResponse);

@@ -22,8 +22,17 @@
   }
 
   &__separator {
-    margin: 16px 0;
+    margin: 3px 0 16px;
     border-bottom: 1px solid #e8e8e8;
+  }
+
+  &__success-message {
+    display: block;
+    margin-top: 40px;
+    color: #35d073;
+    font-size: 11px;
+    line-height: 13px;
+    text-align: center;
   }
 
   &__controls {
@@ -39,13 +48,6 @@
     &:first-child {
       margin-top: 0;
     }
-  }
-
-  &__error {
-    color: #ff004c;
-    font-size: 11px;
-    line-height: 13px;
-    text-align: center;
   }
 
   &__button {
