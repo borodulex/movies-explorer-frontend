@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 
 import { MOVIES_API_BASE_URL } from '../../utils/config.js';
-import { removeMovie, saveMovie } from '../../utils/MainApi';
+import { getSavedMovies, removeMovie, saveMovie } from '../../utils/MainApi';
 import { getMovies } from '../../utils/MoviesApi.js';
 import MoviesCardList from '../MoviesCardList/MoviesCardList.jsx';
 import SearchForm from '../SearchForm/SearchForm';
@@ -9,6 +9,7 @@ import SearchForm from '../SearchForm/SearchForm';
 const Movies = () => {
   const [query, setQuery] = useState('');
   const [moviesList, setMoviesList] = useState([]);
+  const [savedMovieList, setSavedMovieList] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
   const [isQueryRequested, setIsQueryRequested] = useState(false);
   const [isRequestError, setIsRequestError] = useState(false);
@@ -22,9 +23,9 @@ const Movies = () => {
         year: item.year,
         description: item.description,
         image: MOVIES_API_BASE_URL + item.image.url,
-        trailer: item.trailer,
-        thumbnail: MOVIES_API_BASE_URL + item.image.formats.thumbnail,
-        movieId: item.movieId,
+        trailer: item.trailerLink,
+        thumbnail: MOVIES_API_BASE_URL + item.image.formats.thumbnail.url,
+        movieId: item.id,
         nameRU: item.nameRU.trim(),
         nameEN: item.nameEN?.trim(),
       };
@@ -38,6 +39,22 @@ const Movies = () => {
         (item.nameEN && item.nameEN.includes(query))
     );
 
+  const markSavedMovies = (movieList, savedMovieList) => {
+    return movieList.map((movie) => {
+      let savedMovieId;
+      return savedMovieList.find((savedMovie) => {
+        if (savedMovie.movieId === movie.movieId && !savedMovie.isSaved) {
+          savedMovieId = savedMovie._id;
+          return true;
+        } else {
+          return false;
+        }
+      })
+        ? { isSaved: true, _id: savedMovieId, ...movie }
+        : movie;
+    });
+  };
+
   const handleSearch = (e) => {
     e.preventDefault();
 
@@ -45,16 +62,19 @@ const Movies = () => {
     setIsQueryRequested(true);
 
     getMovies()
-      .then((movies) => {
-        console.log(movies);
-        const parsedMovies = parseMoviesApiResponse(movies);
-        const movieSearchResult = filterMovies(parsedMovies, query);
-        localStorage.setItem('moviesQuery', query);
+      .then((movieList) => {
+        const parsedMovieList = parseMoviesApiResponse(movieList);
+        const searchResultMovieList = filterMovies(parsedMovieList, query);
+        const markedMovieList = markSavedMovies(
+          searchResultMovieList,
+          savedMovieList
+        );
         localStorage.setItem(
           'movieSearchResult',
-          JSON.stringify(movieSearchResult)
+          JSON.stringify(searchResultMovieList)
         );
-        setMoviesList(movieSearchResult);
+        localStorage.setItem('moviesQuery', query);
+        setMoviesList(markedMovieList);
         setIsLoading(false);
       })
       .catch((error) => {
@@ -67,7 +87,7 @@ const Movies = () => {
   const handleSaveClick = (card) => {
     saveMovie(card)
       .then((res) => {
-        const savedCard = { isSaved: true, _id: res._id, ...res };
+        const savedCard = { isSaved: true, ...res };
         setMoviesList((state) =>
           state.map((item) =>
             item.movieId === savedCard.movieId ? savedCard : item
@@ -77,28 +97,46 @@ const Movies = () => {
       .catch((error) => console.error(error));
   };
 
-  const handleDeleteClick = (card) => {
+  const handleRemoveClick = (card) => {
     removeMovie(card._id)
-      .then(() =>
+      .then(() => {
         setMoviesList((state) =>
-          state.map((item) => item.movieId !== card.movieId)
-        )
-      )
+          state.map((item) => {
+            if (item._id === card._id) {
+              const { isSaved, _id, ...unmarkedMovie } = item;
+              return unmarkedMovie;
+            } else {
+              return item;
+            }
+          })
+        );
+      })
       .catch((error) => console.error(error));
   };
 
   useEffect(() => {
-    const previousSessionCards = JSON.parse(
-      localStorage.getItem('movieSearchResult') || '[]'
-    );
+    getSavedMovies()
+      .then((savedMovieList) => {
+        const previousSessionCards = JSON.parse(
+          localStorage.getItem('movieSearchResult') || '[]'
+        );
+        const previousSessionQuery = localStorage.getItem('moviesQuery' || '');
 
-    if (previousSessionCards.length !== 0){
-      const previousSessionQuery = localStorage.getItem('moviesQuery' || '');
-
-      setMoviesList(previousSessionCards);
-      setQuery(previousSessionQuery);
-      setIsQueryRequested(true);
-    }
+        if (previousSessionCards.length !== 0) {
+          const markedMovieList = markSavedMovies(
+            previousSessionCards,
+            savedMovieList
+          );
+          setMoviesList(markedMovieList);
+          setQuery(previousSessionQuery);
+          setIsQueryRequested(true);
+        }
+        setSavedMovieList(savedMovieList);
+      })
+      .catch((error) => {
+        setIsRequestError(true);
+        console.error(error);
+      });
   }, []);
 
   return (
@@ -110,11 +148,12 @@ const Movies = () => {
       />
       {isQueryRequested && (
         <MoviesCardList
-          cards={moviesList}
+          movieList={moviesList}
+          savedMovieList={savedMovieList}
           isLoading={isLoading}
           isRequestError={isRequestError}
           onSave={handleSaveClick}
-          onDelete={handleDeleteClick}
+          onRemove={handleRemoveClick}
         />
       )}
     </>

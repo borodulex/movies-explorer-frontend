@@ -53,7 +53,7 @@ export const getSavedMovies = () => {
   }).then(checkResponse);
 };
 
-export const saveMovie = (
+export const saveMovie = ({
   country,
   director,
   duration,
@@ -64,8 +64,8 @@ export const saveMovie = (
   thumbnail,
   movieId,
   nameRU,
-  nameEN
-) => {
+  nameEN,
+}) => {
   return fetch(`${MAIN_API_BASE_URL}/movies`, {
     ...config,
     method: 'POST',
@@ -86,7 +86,7 @@ export const saveMovie = (
 };
 
 export const removeMovie = (movieId) => {
-  return fetch(`${MAIN_API_BASE_URL}/${movieId}`, {
+  return fetch(`${MAIN_API_BASE_URL}/movies/${movieId}`, {
     ...config,
     method: 'DELETE',
   }).then(checkResponse);

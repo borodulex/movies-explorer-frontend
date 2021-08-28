@@ -8,13 +8,22 @@ import DefaultButton from '../UiKit/Buttons/DefaultButton/DefaultButton';
 import Preloader from '../UiKit/Preloader/Preloader';
 
 const MoviesCardList = (props) => {
-  const { cards, isLoading, isRequestError, type, onSave, onDelete } = props;
+  const {
+    movieList,
+    isLoading,
+    isRequestError,
+    type,
+    disableMoreButton,
+    onSave,
+    onRemove,
+  } = props;
 
   const b = block('movies-cards');
 
   const [cardsCount, setCardsCount] = useState(0);
 
-  const getCardsForRender = (cards) => cards.slice(0, cardsCount);
+  const getCardsForRender = (cards) =>
+    disableMoreButton ? cards : cards.slice(0, cardsCount);
 
   const checkMobile = () => window.innerWidth < 480;
   const checkTablet = () => window.innerWidth < 768;
@@ -51,7 +60,7 @@ const MoviesCardList = (props) => {
           <Preloader mixClassName={b('preloader')} />
         ) : (
           <>
-            {cards.length === 0 ? (
+            {movieList.length === 0 ? (
               <p>
                 {isRequestError
                   ? 'Во время запроса произошла ошибка. Возможно, проблема с соединением или сервер недоступен. Подождите немного и попробуйте ещё раз.'
@@ -60,19 +69,19 @@ const MoviesCardList = (props) => {
             ) : (
               <>
                 <ul className={b('list')}>
-                  {getCardsForRender(cards).map((card) => (
-                    <li className={b('item')} key={card.nameRU}>
+                  {getCardsForRender(movieList).map((card, id) => (
+                    <li className={b('item')} key={id}>
                       <MoviesCard
                         card={card}
                         isSaved={card.isSaved}
                         type={type}
                         onSave={onSave}
-                        onDelete={onDelete}
+                        onRemove={onRemove}
                       />
                     </li>
                   ))}
                 </ul>
-                {cards.length > cardsCount && (
+                {movieList.length > cardsCount && !disableMoreButton && (
                   <DefaultButton
                     type={'section'}
                     mixClassName={b('button')}

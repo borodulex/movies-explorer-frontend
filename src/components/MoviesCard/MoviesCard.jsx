@@ -6,7 +6,7 @@ import { useState } from 'react';
 import CardButton from '../UiKit/Buttons/CardButton/CardButton';
 
 const MoviesCard = (props) => {
-  const { card, isSaved = false, type, onSave, onDelete } = props;
+  const { card, isSaved = false, type, onSave, onRemove } = props;
 
   const b = block('movies-card');
 
@@ -19,8 +19,8 @@ const MoviesCard = (props) => {
   };
 
   const handleButtonClick = () => {
-    if (type === 'saved') {
-      onDelete && onDelete();
+    if (type === 'saved' || isSaved) {
+      onRemove && onRemove(card);
     } else {
       onSave && onSave(card);
     }
