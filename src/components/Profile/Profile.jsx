@@ -55,6 +55,8 @@ const Profile = () => {
     signout()
       .then(() => {
         setCurrentUser({});
+        localStorage.removeItem('movieSearchResult');
+        localStorage.removeItem('moviesQuery');
         history.push('/');
       })
       .catch((error) => console.error(error));
