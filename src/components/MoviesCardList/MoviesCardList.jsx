@@ -3,6 +3,7 @@ import './MoviesCardList.scss';
 import block from 'bem-cn';
 import { useEffect, useState } from 'react';
 
+import { filterShortMovies } from '../../utils/utils';
 import MoviesCard from '../MoviesCard/MoviesCard';
 import DefaultButton from '../UiKit/Buttons/DefaultButton/DefaultButton';
 import Preloader from '../UiKit/Preloader/Preloader';
@@ -10,6 +11,7 @@ import Preloader from '../UiKit/Preloader/Preloader';
 const MoviesCardList = (props) => {
   const {
     movieList,
+    showShortsOnly,
     isLoading,
     isRequestError,
     type,
@@ -22,8 +24,19 @@ const MoviesCardList = (props) => {
 
   const [cardsCount, setCardsCount] = useState(0);
 
-  const getCardsForRender = (cards) =>
-    disableMoreButton ? cards : cards.slice(0, cardsCount);
+  const getCardsForRender = (cards) => {
+    const cardsForRender = showShortsOnly ? filterShortMovies(cards) : cards;
+
+    return disableMoreButton
+      ? cardsForRender
+      : cardsForRender.slice(0, cardsCount);
+  };
+
+  const checkCardsOverflow = () => {
+    return showShortsOnly
+      ? filterShortMovies(movieList).length > cardsCount
+      : movieList.length > cardsCount;
+  };
 
   const checkMobile = () => window.innerWidth < 480;
   const checkTablet = () => window.innerWidth < 768;
@@ -53,6 +66,21 @@ const MoviesCardList = (props) => {
     setCardsCount((isMobile && 5) || (isTablet && 8) || 12);
   }, [isLoading]);
 
+  useEffect(() => {
+    console.log(
+      'getCardsForRender(movieList).length',
+      getCardsForRender(movieList).length
+    );
+    console.log(
+      'getCardsForRender(movieList).length',
+      getCardsForRender(movieList).length
+    );
+    console.log('cardsCount', cardsCount);
+    console.log(
+      getCardsForRender(movieList).length > cardsCount && !disableMoreButton
+    );
+  });
+
   return (
     <section className={b()}>
       <div className={b('container')}>
@@ -69,8 +97,8 @@ const MoviesCardList = (props) => {
             ) : (
               <>
                 <ul className={b('list')}>
-                  {getCardsForRender(movieList).map((card, id) => (
-                    <li className={b('item')} key={id}>
+                  {getCardsForRender(movieList).map((card) => (
+                    <li className={b('item')} key={card.movieId}>
                       <MoviesCard
                         card={card}
                         isSaved={card.isSaved}
@@ -81,7 +109,7 @@ const MoviesCardList = (props) => {
                     </li>
                   ))}
                 </ul>
-                {movieList.length > cardsCount && !disableMoreButton && (
+                {checkCardsOverflow() && !disableMoreButton && (
                   <DefaultButton
                     type={'section'}
                     mixClassName={b('button')}

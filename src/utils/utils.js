@@ -3,6 +3,10 @@ export const isObjEmpty = (obj) => {
   return true;
 };
 
-export const sortArrayOfObjectByProperty = (data, objProp) => {
-  return [...data].sort((a, b) => a[objProp].localeCompare(b[objProp]));
+export const sortArrayOfObjectByProperty = (obj, objProp) => {
+  return [...obj].sort((a, b) => a[objProp].localeCompare(b[objProp]));
+};
+
+export const filterShortMovies = (movieList) => {
+  return movieList.filter((item) => item.duration <= 40);
 };

@@ -1,20 +1,15 @@
 import './SearchForm.scss';
 
 import block from 'bem-cn';
-import { useState } from 'react';
 
 import iconSearch from '../../images/icon-search.svg';
 import FilterSwitch from '../UiKit/Buttons/FilterSwitch/FilterSwitch';
 import IconButton from '../UiKit/Buttons/IconButton/IconButton';
 
 const SearchForm = (props) => {
-  const { value, onChange, onSubmit } = props;
+  const { value, activeToggle, onChange, onSubmit, onToggle } = props;
 
   const b = block('search-form');
-
-  const [isOn, setIsOn] = useState(false);
-
-  const toggleSwitch = () => setIsOn(!isOn);
 
   return (
     <section className={b()}>
@@ -44,8 +39,8 @@ const SearchForm = (props) => {
         <div className={b('shorts')}>
           <FilterSwitch
             mixClassName={b('switch')}
-            active={isOn}
-            onToggle={toggleSwitch}
+            active={activeToggle}
+            onToggle={onToggle}
           />
           <span className={b('switch-label')}>Короткометражки</span>
         </div>

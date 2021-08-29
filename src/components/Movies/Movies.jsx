@@ -8,11 +8,12 @@ import SearchForm from '../SearchForm/SearchForm';
 
 const Movies = () => {
   const [query, setQuery] = useState('');
-  const [moviesList, setMoviesList] = useState([]);
+  const [movieList, setMovieList] = useState([]);
   const [savedMovieList, setSavedMovieList] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
   const [isQueryRequested, setIsQueryRequested] = useState(false);
   const [isRequestError, setIsRequestError] = useState(false);
+  const [showShortsOnly, setShowShortsOnly] = useState(false);
 
   const parseMoviesApiResponse = (data) => {
     return data.map((item) => {
@@ -35,8 +36,8 @@ const Movies = () => {
   const filterMovies = (cards, query) =>
     cards.filter(
       (item) =>
-        item.nameRU.includes(query) ||
-        (item.nameEN && item.nameEN.includes(query))
+        item.nameRU.toLowerCase().includes(query.toLowerCase()) ||
+        (item.nameEN && item.nameEN.toLowerCase().includes(query.toLowerCase()))
     );
 
   const markSavedMovies = (movieList, savedMovieList) => {
@@ -71,10 +72,10 @@ const Movies = () => {
         );
         localStorage.setItem(
           'movieSearchResult',
-          JSON.stringify(searchResultMovieList)
+          JSON.stringify(markedMovieList)
         );
         localStorage.setItem('moviesQuery', query);
-        setMoviesList(markedMovieList);
+        setMovieList(markedMovieList);
         setIsLoading(false);
       })
       .catch((error) => {
@@ -88,7 +89,7 @@ const Movies = () => {
     saveMovie(card)
       .then((res) => {
         const savedCard = { isSaved: true, ...res };
-        setMoviesList((state) =>
+        setMovieList((state) =>
           state.map((item) =>
             item.movieId === savedCard.movieId ? savedCard : item
           )
@@ -100,7 +101,7 @@ const Movies = () => {
   const handleRemoveClick = (card) => {
     removeMovie(card._id)
       .then(() => {
-        setMoviesList((state) =>
+        setMovieList((state) =>
           state.map((item) => {
             if (item._id === card._id) {
               const { isSaved, _id, ...unmarkedMovie } = item;
@@ -114,6 +115,11 @@ const Movies = () => {
       .catch((error) => console.error(error));
   };
 
+  const handleShortsToggle = () => {
+    localStorage.setItem('showShortsOnly', !showShortsOnly);
+    setShowShortsOnly(!showShortsOnly);
+  };
+
   useEffect(() => {
     getSavedMovies()
       .then((savedMovieList) => {
@@ -121,15 +127,20 @@ const Movies = () => {
           localStorage.getItem('movieSearchResult') || '[]'
         );
         const previousSessionQuery = localStorage.getItem('moviesQuery' || '');
+        const previousSessionShowShortsOnly = localStorage.getItem(
+          'showShortsOnly',
+          !showShortsOnly
+        );
 
         if (previousSessionCards.length !== 0) {
           const markedMovieList = markSavedMovies(
             previousSessionCards,
             savedMovieList
           );
-          setMoviesList(markedMovieList);
+          setMovieList(markedMovieList);
           setQuery(previousSessionQuery);
           setIsQueryRequested(true);
+          setShowShortsOnly(previousSessionShowShortsOnly === 'true');
         }
         setSavedMovieList(savedMovieList);
       })
@@ -137,18 +148,21 @@ const Movies = () => {
         setIsRequestError(true);
         console.error(error);
       });
-  }, []);
+  }, [showShortsOnly]);
 
   return (
     <>
       <SearchForm
         value={query}
+        activeToggle={showShortsOnly}
         onChange={(e) => setQuery(e.target.value)}
         onSubmit={handleSearch}
+        onToggle={handleShortsToggle}
       />
       {isQueryRequested && (
         <MoviesCardList
-          movieList={moviesList}
+          movieList={movieList}
+          showShortsOnly={showShortsOnly}
           savedMovieList={savedMovieList}
           isLoading={isLoading}
           isRequestError={isRequestError}
