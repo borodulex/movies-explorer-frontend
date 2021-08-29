@@ -82,11 +82,11 @@ const MoviesCardList = (props) => {
             ) : (
               <>
                 <ul className={b('list')}>
-                  {getCardsForRender(movieList).map((card) => (
-                    <li className={b('item')} key={card.movieId}>
+                  {getCardsForRender(movieList).map((movie) => (
+                    <li className={b('item')} key={movie.movieId}>
                       <MoviesCard
-                        card={card}
-                        isSaved={card.isSaved}
+                        movie={movie}
+                        isSaved={movie.isSaved}
                         type={type}
                         onSave={onSave}
                         onRemove={onRemove}

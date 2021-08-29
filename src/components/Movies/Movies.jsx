@@ -31,6 +31,7 @@ const Movies = () => {
       getMovies()
         .then((movieList) => {
           const parsedMovieList = parseMoviesApiResponse(movieList);
+          console.log(parsedMovieList);
           const searchResult = filterMovies(parsedMovieList, values.movieQuery);
           const markedSearchResult = markSavedMovies(
             searchResult,

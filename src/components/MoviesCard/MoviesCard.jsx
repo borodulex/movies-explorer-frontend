@@ -6,7 +6,7 @@ import { useState } from 'react';
 import CardButton from '../UiKit/Buttons/CardButton/CardButton';
 
 const MoviesCard = (props) => {
-  const { card, isSaved = false, type, onSave, onRemove } = props;
+  const { movie, isSaved = false, type, onSave, onRemove } = props;
 
   const b = block('movies-card');
 
@@ -20,9 +20,9 @@ const MoviesCard = (props) => {
 
   const handleButtonClick = () => {
     if (type === 'saved' || isSaved) {
-      onRemove && onRemove(card);
+      onRemove && onRemove(movie);
     } else {
-      onSave && onSave(card);
+      onSave && onSave(movie);
     }
   };
 
@@ -32,15 +32,22 @@ const MoviesCard = (props) => {
       onMouseEnter={() => setIsButtonVisible(true)}
       onMouseLeave={() => !isSaved && setIsButtonVisible(false)}
     >
-      <img
-        src={card.image}
-        alt={`Карточка фильма ${card.nameRU}`}
-        className={b('image')}
-      />
-      <div className={b('body')}>
-        <h3 className={b('title')}>{card.nameRU}</h3>
-        <div className={b('duration')}>{convertDuration(card.duration)}</div>
-      </div>
+      <a
+        className={b('link')}
+        href={movie.trailer}
+        target="_blank"
+        rel="noopener noreferrer"
+      >
+        <img
+          src={movie.image}
+          alt={`Карточка фильма ${movie.nameRU}`}
+          className={b('image')}
+        />
+        <div className={b('body')}>
+          <h3 className={b('title')}>{movie.nameRU}</h3>
+          <div className={b('duration')}>{convertDuration(movie.duration)}</div>
+        </div>
+      </a>
       {isButtonVisible && (
         <CardButton
           mixClassName={b('button')}
