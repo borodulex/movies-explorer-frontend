@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react';
 
+import { useForm } from '../../hooks/useForm';
 import { MOVIES_API_BASE_URL } from '../../utils/config.js';
 import { getSavedMovies, removeMovie, saveMovie } from '../../utils/MainApi';
 import { getMovies } from '../../utils/MoviesApi.js';
@@ -8,13 +9,14 @@ import MoviesCardList from '../MoviesCardList/MoviesCardList.jsx';
 import SearchForm from '../SearchForm/SearchForm';
 
 const Movies = () => {
-  const [query, setQuery] = useState('');
   const [movieList, setMovieList] = useState([]);
   const [savedMovieList, setSavedMovieList] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
   const [isQueryRequested, setIsQueryRequested] = useState(false);
   const [isRequestError, setIsRequestError] = useState(false);
   const [showShortsOnly, setShowShortsOnly] = useState(false);
+
+  const { values, handleChange } = useForm();
 
   const parseMoviesApiResponse = (data) => {
     return data.map((item) => {
@@ -59,7 +61,10 @@ const Movies = () => {
     getMovies()
       .then((movieList) => {
         const parsedMovieList = parseMoviesApiResponse(movieList);
-        const searchResultMovieList = filterMovies(parsedMovieList, query);
+        const searchResultMovieList = filterMovies(
+          parsedMovieList,
+          values.movieQuery
+        );
         const markedMovieList = markSavedMovies(
           searchResultMovieList,
           savedMovieList
@@ -68,7 +73,7 @@ const Movies = () => {
           'movieSearchResult',
           JSON.stringify(markedMovieList)
         );
-        localStorage.setItem('moviesQuery', query);
+        localStorage.setItem('movieQuery', values.movieQuery);
         setMovieList(markedMovieList);
         setIsLoading(false);
       })
@@ -120,7 +125,6 @@ const Movies = () => {
         const previousSessionCards = JSON.parse(
           localStorage.getItem('movieSearchResult') || '[]'
         );
-        const previousSessionQuery = localStorage.getItem('moviesQuery' || '');
         const previousSessionShowShortsOnly = localStorage.getItem(
           'showShortsOnly',
           !showShortsOnly
@@ -132,7 +136,6 @@ const Movies = () => {
             savedMovieList
           );
           setMovieList(markedMovieList);
-          setQuery(previousSessionQuery);
           setIsQueryRequested(true);
           setShowShortsOnly(previousSessionShowShortsOnly === 'true');
         }
@@ -147,9 +150,10 @@ const Movies = () => {
   return (
     <>
       <SearchForm
-        value={query}
+        name="movieQuery"
+        value={values.movieQuery}
         activeToggle={showShortsOnly}
-        onChange={(e) => setQuery(e.target.value)}
+        onChange={handleChange}
         onSubmit={handleSearch}
         onToggle={handleShortsToggle}
       />
