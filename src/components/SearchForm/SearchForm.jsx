@@ -17,7 +17,8 @@ const SearchForm = (props) => {
         <form className={b('field')} onSubmit={onSubmit} name="test">
           <input
             className={b('input')}
-            value={value}
+            name="filmQuery"
+            value={value || ''}
             type="text"
             placeholder="Фильм"
             required

@@ -3,8 +3,8 @@ import './Login.scss';
 import block from 'bem-cn';
 import { useHistory } from 'react-router';
 
+import { useFormWithValidation } from '../../hooks/useForm';
 import { requestErrorsLogin } from '../../utils/consts';
-import { useFormWithValidation } from '../../utils/hooks/useForm';
 import { authorize } from '../../utils/MainApi';
 import FormButton from '../UiKit/Buttons/FormButton/FormButton';
 import AuthInput from '../UiKit/Inputs/AuthInput/AuthInput';

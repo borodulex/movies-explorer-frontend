@@ -66,21 +66,6 @@ const MoviesCardList = (props) => {
     setCardsCount((isMobile && 5) || (isTablet && 8) || 12);
   }, [isLoading]);
 
-  useEffect(() => {
-    console.log(
-      'getCardsForRender(movieList).length',
-      getCardsForRender(movieList).length
-    );
-    console.log(
-      'getCardsForRender(movieList).length',
-      getCardsForRender(movieList).length
-    );
-    console.log('cardsCount', cardsCount);
-    console.log(
-      getCardsForRender(movieList).length > cardsCount && !disableMoreButton
-    );
-  });
-
   return (
     <section className={b()}>
       <div className={b('container')}>

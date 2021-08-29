@@ -5,8 +5,8 @@ import { useContext, useState } from 'react';
 import { useHistory } from 'react-router-dom';
 
 import { CurrentUserContext } from '../../contexts/currentUserContext';
+import { useFormWithValidation } from '../../hooks/useForm';
 import { requestErrorsProfile } from '../../utils/consts';
-import { useFormWithValidation } from '../../utils/hooks/useForm';
 import { signout, updateBio } from '../../utils/MainApi';
 import FormButton from '../UiKit/Buttons/FormButton/FormButton';
 import LinkButton from '../UiKit/Buttons/LinkButton/LinkButton';

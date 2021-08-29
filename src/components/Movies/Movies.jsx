@@ -3,6 +3,7 @@ import { useEffect, useState } from 'react';
 import { MOVIES_API_BASE_URL } from '../../utils/config.js';
 import { getSavedMovies, removeMovie, saveMovie } from '../../utils/MainApi';
 import { getMovies } from '../../utils/MoviesApi.js';
+import { filterMovies } from '../../utils/utils.js';
 import MoviesCardList from '../MoviesCardList/MoviesCardList.jsx';
 import SearchForm from '../SearchForm/SearchForm';
 
@@ -32,13 +33,6 @@ const Movies = () => {
       };
     });
   };
-
-  const filterMovies = (cards, query) =>
-    cards.filter(
-      (item) =>
-        item.nameRU.toLowerCase().includes(query.toLowerCase()) ||
-        (item.nameEN && item.nameEN.toLowerCase().includes(query.toLowerCase()))
-    );
 
   const markSavedMovies = (movieList, savedMovieList) => {
     return movieList.map((movie) => {
