@@ -1,3 +1,5 @@
+import { isURL } from 'validator';
+
 import { MOVIES_API_BASE_URL } from './config.js';
 
 export const isObjEmpty = (obj) => {
@@ -16,17 +18,19 @@ export const filterShortMovies = (movieList) => {
 export const parseMoviesApiResponse = (data) => {
   return data.map((item) => {
     return {
-      country: item.country,
-      director: item.director,
+      country: item.country || 'Unknown',
+      director: item.director || 'Unknown',
       duration: item.duration,
       year: item.year,
       description: item.description,
       image: MOVIES_API_BASE_URL + item.image.url,
-      trailer: item.trailerLink,
+      trailer: isURL(item.trailerLink || '')
+        ? item.trailerLink
+        : `https://www.youtube.com/results?search_query=${item.nameRU}`,
       thumbnail: MOVIES_API_BASE_URL + item.image.formats.thumbnail.url,
       movieId: item.id,
       nameRU: item.nameRU.trim(),
-      nameEN: item.nameEN?.trim(),
+      nameEN: item.nameEN?.trim() || 'Unknown',
     };
   });
 };
