@@ -8,7 +8,6 @@ const config = {
 const checkResponse = (res) => (res.ok ? res.json() : Promise.reject(res));
 
 export const register = (name, email, password) => {
-  console.log({ name, email, password });
   return fetch(`${MAIN_API_BASE_URL}/signup`, {
     ...config,
     method: 'POST',

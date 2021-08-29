@@ -44,7 +44,7 @@ const Register = (props) => {
           ...errors,
           request: requestErrorsRegister[error.status],
         });
-        error.json().then((error) => console.log(error));
+        console.error(error);
       });
   };
 

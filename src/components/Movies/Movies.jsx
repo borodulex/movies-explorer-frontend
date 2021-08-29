@@ -31,7 +31,6 @@ const Movies = () => {
       getMovies()
         .then((movieList) => {
           const parsedMovieList = parseMoviesApiResponse(movieList);
-          console.log(parsedMovieList);
           const searchResult = filterMovies(parsedMovieList, values.movieQuery);
           const markedSearchResult = markSavedMovies(
             searchResult,
@@ -92,7 +91,6 @@ const Movies = () => {
         const prevSessionMovieList = JSON.parse(
           localStorage.getItem('movieList') || '[]'
         );
-        console.log('prevSessionMovieList', prevSessionMovieList);
         if (prevSessionMovieList.length !== 0) {
           const markedMovieList = markSavedMovies(
             prevSessionMovieList,

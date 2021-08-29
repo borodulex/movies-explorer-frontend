@@ -44,7 +44,7 @@ const Login = (props) => {
           ...errors,
           request: requestErrorsLogin[error.status],
         });
-        console.log(error);
+        console.error(error);
       });
   };
 
