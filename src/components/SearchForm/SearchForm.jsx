@@ -7,7 +7,7 @@ import FilterSwitch from '../UiKit/Buttons/FilterSwitch/FilterSwitch';
 import IconButton from '../UiKit/Buttons/IconButton/IconButton';
 
 const SearchForm = (props) => {
-  const { value, activeToggle, onChange, onSubmit, onToggle } = props;
+  const { name, value, activeToggle, onChange, onSubmit, onToggle } = props;
 
   const b = block('search-form');
 
@@ -17,7 +17,7 @@ const SearchForm = (props) => {
         <form className={b('field')} onSubmit={onSubmit} name="test">
           <input
             className={b('input')}
-            name="filmQuery"
+            name={name}
             value={value || ''}
             type="text"
             placeholder="Фильм"

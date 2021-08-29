@@ -16,7 +16,7 @@ const SavedMovies = () => {
   const handleSearch = (e) => {
     e.preventDefault();
 
-    const searchResult = filterMovies(savedMovieList, values.filmQuery);
+    const searchResult = filterMovies(savedMovieList, values.savedFilmQuery);
     setSavedMovieList(searchResult);
   };
 
@@ -43,7 +43,8 @@ const SavedMovies = () => {
   return (
     <>
       <SearchForm
-        value={values.filmQuery}
+        name="savedFilmQuery"
+        value={values.savedFilmQuery}
         activeToggle={showShortsOnly}
         onChange={handleChange}
         onSubmit={handleSearch}
