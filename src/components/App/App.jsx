@@ -58,7 +58,7 @@ function App() {
       })
       .catch((error) => {
         setIsCurrentUserFetched(true);
-        error.json().then((error) => console.error(error));
+        console.error(error);
       });
   };
 
@@ -100,12 +100,18 @@ function App() {
                 component={Profile}
                 onSignOut={handleSignOut}
               />
-              <Route path="/signin">
-                <Login onLogin={handleLogin} />
-              </Route>
-              <Route path="/signup">
-                <Register onRegister={handleRegister} />
-              </Route>
+              <ProtectedRoute
+                path="/signin"
+                loggedIn={isObjEmpty(currentUser)}
+                component={Login}
+                onLogin={handleLogin}
+              />
+              <ProtectedRoute
+                path="/signup"
+                loggedIn={isObjEmpty(currentUser)}
+                component={Register}
+                onRegister={handleRegister}
+              />
               <ProtectedRoute
                 loggedIn={!isObjEmpty(currentUser)}
                 component={NotFound}
