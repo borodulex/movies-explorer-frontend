@@ -61,7 +61,7 @@ const Profile = (props) => {
   return (
     <section className={b()}>
       <form className={b('form')} name="profile" noValidate>
-        <h1 className={b('title')}>Привет, Виталий!</h1>
+        <h1 className={b('title')}>{`Привет, ${currentUser.name}!`}</h1>
         <fieldset className={b('inputs')}>
           <AuthInput
             label="Имя"
