@@ -31,6 +31,14 @@
   &__button {
     margin-top: 80px;
   }
+
+  &__error {
+    display: block;
+    max-width: 380px;
+    margin: 0 auto;
+    margin-top: 160px;
+    text-align: center;
+  }
 }
 
 @media screen and (max-width: 768px) {
