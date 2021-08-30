@@ -2,7 +2,6 @@ import './Profile.scss';
 
 import block from 'bem-cn';
 import { useContext, useState } from 'react';
-import { useHistory } from 'react-router-dom';
 
 import { CurrentUserContext } from '../../contexts/currentUserContext';
 import { useFormWithValidation } from '../../hooks/useForm';
@@ -13,10 +12,10 @@ import LinkButton from '../UiKit/Buttons/LinkButton/LinkButton';
 import AuthInput from '../UiKit/Inputs/AuthInput/AuthInput';
 import RequestError from '../UiKit/RequestError/RequestError';
 
-const Profile = () => {
-  const b = block('profile');
+const Profile = (props) => {
+  const { onSignOut } = props;
 
-  const history = useHistory();
+  const b = block('profile');
 
   const { currentUser, setCurrentUser } = useContext(CurrentUserContext);
 
@@ -51,12 +50,10 @@ const Profile = () => {
       });
   };
 
-  const handleLogout = () => {
+  const handleSignOut = () => {
     signout()
       .then(() => {
-        setCurrentUser({});
-        localStorage.removeItem('movieList');
-        history.push('/');
+        onSignOut();
       })
       .catch((error) => console.error(error));
   };
@@ -137,7 +134,7 @@ const Profile = () => {
                 mixClassName={b('control')}
                 type="button"
                 theme="highlight"
-                onClick={handleLogout}
+                onClick={handleSignOut}
               >
                 Выйти из аккаунта
               </LinkButton>

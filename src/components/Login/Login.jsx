@@ -1,7 +1,6 @@
 import './Login.scss';
 
 import block from 'bem-cn';
-import { useHistory } from 'react-router';
 
 import { useFormWithValidation } from '../../hooks/useForm';
 import { requestErrorsLogin } from '../../utils/consts';
@@ -13,7 +12,7 @@ import Logo from '../UiKit/Logo/Logo';
 import RequestError from '../UiKit/RequestError/RequestError';
 
 const Login = (props) => {
-  const { onSuccess } = props;
+  const { onLogin } = props;
 
   const b = block('login');
 
@@ -26,7 +25,6 @@ const Login = (props) => {
     setIsValid,
     resetForm,
   } = useFormWithValidation();
-  const history = useHistory();
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -34,9 +32,8 @@ const Login = (props) => {
     setIsValid(false);
     authorize(email, password)
       .then(() => {
-        onSuccess();
         resetForm();
-        history.push('/movies');
+        onLogin();
       })
       .catch((error) => {
         setIsValid(false);

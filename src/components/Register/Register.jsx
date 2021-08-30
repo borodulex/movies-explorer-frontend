@@ -1,7 +1,6 @@
 import './Register.scss';
 
 import block from 'bem-cn';
-import { useHistory } from 'react-router';
 
 import { useFormWithValidation } from '../../hooks/useForm';
 import { requestErrorsRegister } from '../../utils/consts';
@@ -13,11 +12,9 @@ import Logo from '../UiKit/Logo/Logo';
 import RequestError from '../UiKit/RequestError/RequestError';
 
 const Register = (props) => {
-  const { onSuccess } = props;
+  const { onRegister } = props;
 
   const b = block('register');
-
-  const history = useHistory();
 
   const {
     values,
@@ -34,9 +31,8 @@ const Register = (props) => {
     const { name, email, password } = values;
     register(name, email, password)
       .then((createdUser) => {
-        onSuccess();
         resetForm();
-        history.push('/movies');
+        onRegister(createdUser);
       })
       .catch((error) => {
         setIsValid(false);

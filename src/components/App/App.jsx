@@ -3,6 +3,7 @@ import './App.scss';
 import block from 'bem-cn';
 import { useEffect, useState } from 'react';
 import { useMediaQuery } from 'react-responsive';
+import { useHistory } from 'react-router';
 import { Route, Switch, useLocation } from 'react-router-dom';
 
 import { CurrentUserContext } from '../../contexts/currentUserContext';
@@ -31,14 +32,33 @@ function App() {
   const [currentUser, setCurrentUser] = useState({});
   const [isCurrentUserFetched, setIsCurrentUserFetched] = useState(false);
 
-  const getCurrentUser = () => {
+  const history = useHistory();
+
+  const pushToMoviesPage = () => history.push('/movies');
+
+  const handleRegister = (user) => {
+    setCurrentUser(user);
+    pushToMoviesPage();
+  };
+
+  const handleLogin = () => getCurrentUser(pushToMoviesPage);
+
+  const handleSignOut = () => {
+    setCurrentUser({});
+    localStorage.removeItem('movieList');
+    history.push('/');
+  };
+
+  const getCurrentUser = (action) => {
     getBio()
       .then((user) => {
         setCurrentUser(user);
         setIsCurrentUserFetched(true);
+        action && action();
       })
       .catch((error) => {
         setIsCurrentUserFetched(true);
+        error.json().then((error) => console.error(error));
       });
   };
 
@@ -78,12 +98,13 @@ function App() {
                 path="/profile"
                 loggedIn={!isObjEmpty(currentUser)}
                 component={Profile}
+                onSignOut={handleSignOut}
               />
               <Route path="/signin">
-                <Login onSuccess={getCurrentUser} />
+                <Login onLogin={handleLogin} />
               </Route>
               <Route path="/signup">
-                <Register onSuccess={getCurrentUser} />
+                <Register onRegister={handleRegister} />
               </Route>
               <ProtectedRoute
                 loggedIn={!isObjEmpty(currentUser)}
