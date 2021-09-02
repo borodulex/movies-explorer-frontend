@@ -1,6 +1,7 @@
 import { isURL } from 'validator';
 
 import { MOVIES_API_BASE_URL } from './config.js';
+import { SHORT_MOVIE_DURATION } from './consts.js';
 
 export const isObjEmpty = (obj) => {
   for (var i in obj) return false;
@@ -12,7 +13,7 @@ export const sortArrayOfObjectByProperty = (obj, objProp) => {
 };
 
 export const filterShortMovies = (movieList) => {
-  return movieList.filter((item) => item.duration <= 40);
+  return movieList.filter((item) => item.duration <= SHORT_MOVIE_DURATION);
 };
 
 export const parseMoviesApiResponse = (data) => {

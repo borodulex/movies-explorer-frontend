@@ -1,3 +1,5 @@
+@import '../../styles/_vars.scss';
+
 .profile {
   &__form {
     display: flex;
@@ -55,7 +57,7 @@
   }
 }
 
-@media screen and (max-width: 768px) {
+@media screen and (max-width: $tablet-width) {
   .profile {
     &__form {
       min-height: 445px;
@@ -69,7 +71,7 @@
   }
 }
 
-@media screen and (max-width: 425px) {
+@media screen and (max-width: $mobile-width) {
   .profile {
     &__form {
       min-height: 597px;

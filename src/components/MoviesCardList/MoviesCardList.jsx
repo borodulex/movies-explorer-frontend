@@ -3,6 +3,13 @@ import './MoviesCardList.scss';
 import block from 'bem-cn';
 import { useEffect, useState } from 'react';
 
+import {
+  INITIAL_CARDS_COUNT_DESKTOP,
+  INITIAL_CARDS_COUNT_MOBILE,
+  INITIAL_CARDS_COUNT_TABLET,
+  MOBILE_WIDTH,
+  TABLET_WIDTH,
+} from '../../utils/consts';
 import { filterShortMovies } from '../../utils/utils';
 import MoviesCard from '../MoviesCard/MoviesCard';
 import DefaultButton from '../UiKit/Buttons/DefaultButton/DefaultButton';
@@ -38,8 +45,8 @@ const MoviesCardList = (props) => {
       : movieList.length > cardsCount;
   };
 
-  const checkMobile = () => window.innerWidth < 480;
-  const checkTablet = () => window.innerWidth < 768;
+  const checkMobile = () => window.innerWidth < MOBILE_WIDTH;
+  const checkTablet = () => window.innerWidth < TABLET_WIDTH;
 
   const handleMoreButtonClick = () => {
     const isMobile = checkMobile();
@@ -63,7 +70,11 @@ const MoviesCardList = (props) => {
   useEffect(() => {
     const isMobile = checkMobile();
     const isTablet = checkTablet();
-    setCardsCount((isMobile && 5) || (isTablet && 8) || 12);
+    setCardsCount(
+      (isMobile && INITIAL_CARDS_COUNT_MOBILE) ||
+        (isTablet && INITIAL_CARDS_COUNT_TABLET) ||
+        INITIAL_CARDS_COUNT_DESKTOP
+    );
   }, [isLoading]);
 
   return (

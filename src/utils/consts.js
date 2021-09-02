@@ -6,6 +6,15 @@ export const NOT_FOUND = 404;
 export const CONFLICT = 409;
 export const INTERNAL_SERVER_ERROR = 500;
 
+export const SHORT_MOVIE_DURATION = 40;
+
+export const MOBILE_WIDTH = 480;
+export const TABLET_WIDTH = 768;
+
+export const INITIAL_CARDS_COUNT_MOBILE = 5;
+export const INITIAL_CARDS_COUNT_TABLET = 8;
+export const INITIAL_CARDS_COUNT_DESKTOP = 12;
+
 export const sideBarNavData = [
   {
     name: 'Главная',

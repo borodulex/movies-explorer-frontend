@@ -1,3 +1,5 @@
+@import '../../../styles/_vars.scss';
+
 .about-me {
   max-width: 1280px;
   margin: 0 auto;
@@ -71,7 +73,7 @@
   }
 }
 
-@media screen and (max-width: 768px) {
+@media screen and (max-width: $tablet-width) {
   .about-me {
     &__container {
       padding-top: 90px;
@@ -114,7 +116,7 @@
   }
 }
 
-@media screen and (max-width: 425px) {
+@media screen and (max-width: $mobile-width) {
   .about-me {
     &__container {
       padding: 52px 14px 35px;
