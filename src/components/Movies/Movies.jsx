@@ -11,8 +11,10 @@ import {
 import MoviesCardList from '../MoviesCardList/MoviesCardList.jsx';
 import SearchForm from '../SearchForm/SearchForm';
 
-const Movies = () => {
-  const [movieList, setMovieList] = useState([]);
+const Movies = (props) => {
+  const { initialData } = props;
+
+  const [movieList, setMovieList] = useState(initialData.movieList || []);
   const [movieListForRender, setMovieListForRender] = useState([]);
   const [savedMovieList, setSavedMovieList] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
@@ -62,6 +64,7 @@ const Movies = () => {
             item.movieId === savedCard.movieId ? savedCard : item
           )
         );
+        setSavedMovieList((state) => [savedCard, ...state]);
       })
       .catch((error) => console.error(error));
   };
@@ -79,25 +82,20 @@ const Movies = () => {
             }
           })
         );
+        setSavedMovieList((state) =>
+          state.filter((item) => item._id !== card._id)
+        );
       })
       .catch((error) => console.error(error));
   };
 
   const handleShortsToggle = () => setShowShortsOnly(!showShortsOnly);
 
+  const handleEmptyInput = () => setMovieListForRender([]);
+
   useEffect(() => {
     getSavedMovies()
       .then((savedMovieList) => {
-        const prevSessionMovieList = JSON.parse(
-          localStorage.getItem('movieList') || '[]'
-        );
-        if (prevSessionMovieList.length !== 0) {
-          const markedMovieList = markSavedMovies(
-            prevSessionMovieList,
-            savedMovieList
-          );
-          setMovieList(markedMovieList);
-        }
         setSavedMovieList(savedMovieList);
       })
       .catch((error) => {
@@ -115,6 +113,7 @@ const Movies = () => {
         onChange={handleChange}
         onSubmit={handleSearch}
         onToggle={handleShortsToggle}
+        onInvalid={handleEmptyInput}
       />
       {isQueryRequested && (
         <MoviesCardList

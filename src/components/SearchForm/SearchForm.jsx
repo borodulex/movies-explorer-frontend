@@ -7,7 +7,8 @@ import FilterSwitch from '../UiKit/Buttons/FilterSwitch/FilterSwitch';
 import IconButton from '../UiKit/Buttons/IconButton/IconButton';
 
 const SearchForm = (props) => {
-  const { name, value, activeToggle, onChange, onSubmit, onToggle } = props;
+  const { name, value, activeToggle, onChange, onSubmit, onToggle, onInvalid } =
+    props;
 
   const b = block('search-form');
 
@@ -23,9 +24,10 @@ const SearchForm = (props) => {
             placeholder="Фильм"
             required
             onChange={onChange}
-            onInvalid={(e) =>
-              e.target.setCustomValidity('Нужно ввести ключевое слово')
-            }
+            onInvalid={(e) => {
+              onInvalid && onInvalid();
+              e.target.setCustomValidity('Нужно ввести ключевое слово');
+            }}
             onInput={(e) => e.target.setCustomValidity('')}
           />
           <IconButton

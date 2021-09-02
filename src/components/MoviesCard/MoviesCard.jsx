@@ -1,7 +1,7 @@
 import './MoviesCard.scss';
 
 import block from 'bem-cn';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 
 import CardButton from '../UiKit/Buttons/CardButton/CardButton';
 
@@ -26,11 +26,19 @@ const MoviesCard = (props) => {
     }
   };
 
+  const handleMouseOver = () => setIsButtonVisible(true);
+
+  const handleMouseLeave = () => !isSaved && setIsButtonVisible(false);
+
+  useEffect(() => {
+    isSaved && setIsButtonVisible(true);
+  }, [isSaved]);
+
   return (
     <article
       className={b()}
-      onMouseEnter={() => setIsButtonVisible(true)}
-      onMouseLeave={() => !isSaved && setIsButtonVisible(false)}
+      onMouseOver={handleMouseOver}
+      onMouseLeave={handleMouseLeave}
     >
       <a
         className={b('link')}

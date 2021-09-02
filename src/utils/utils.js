@@ -36,6 +36,7 @@ export const parseMoviesApiResponse = (data) => {
 };
 
 export const filterMovies = (cards, query) => {
+  if (!query) return cards;
   return cards.filter(
     (item) =>
       item.nameRU.toLowerCase().includes(query.toLowerCase()) ||
@@ -47,7 +48,7 @@ export const markSavedMovies = (movieList, savedMovieList) => {
   return movieList.map((movie) => {
     let savedMovieId;
     return savedMovieList.find((savedMovie) => {
-      if (savedMovie.movieId === movie.movieId && !savedMovie.isSaved) {
+      if (savedMovie.movieId === movie.movieId) {
         savedMovieId = savedMovie._id;
         return true;
       } else {

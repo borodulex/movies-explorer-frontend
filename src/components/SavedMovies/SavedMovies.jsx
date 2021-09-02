@@ -9,22 +9,29 @@ import SearchForm from '../SearchForm/SearchForm';
 
 const SavedMovies = () => {
   const [savedMovieList, setSavedMovieList] = useState([]);
+  const [savedMovieListForRender, setSavedMovieListForRender] = useState([]);
   const [showShortsOnly, setShowShortsOnly] = useState(false);
 
   const { values, handleChange } = useForm();
 
   const handleSearch = (e) => {
     e.preventDefault();
-
-    const searchResult = filterMovies(savedMovieList, values.savedFilmQuery);
-    setSavedMovieList(searchResult);
+    const searchResult = filterMovies(savedMovieList, values.savedMoviesQuery);
+    const sortedSearchResultByName = sortArrayOfObjectByProperty(
+      searchResult,
+      'nameRU'
+    );
+    setSavedMovieListForRender(sortedSearchResultByName);
   };
 
   const handleMovieCardRemove = (card) => {
     removeMovie(card._id)
       .then(() => {
-        setSavedMovieList(
-          savedMovieList.filter((item) => item._id !== card._id)
+        setSavedMovieListForRender(
+          savedMovieListForRender.filter((item) => item._id !== card._id)
+        );
+        setSavedMovieList((state) =>
+          state.filter((item) => item._id !== card._id)
         );
       })
       .catch((error) => console.error(error));
@@ -32,10 +39,14 @@ const SavedMovies = () => {
 
   const handleShortsToggle = () => setShowShortsOnly(!showShortsOnly);
 
+  const handleEmptyInput = () => setSavedMovieListForRender(savedMovieList);
+
   useEffect(() => {
     getSavedMovies()
       .then((data) => {
-        setSavedMovieList(sortArrayOfObjectByProperty(data, 'nameRU'));
+        const sortedDataByName = sortArrayOfObjectByProperty(data, 'nameRU');
+        setSavedMovieList(sortedDataByName);
+        setSavedMovieListForRender(sortedDataByName);
       })
       .catch((error) => console.error(error));
   }, []);
@@ -43,22 +54,21 @@ const SavedMovies = () => {
   return (
     <>
       <SearchForm
-        name="savedFilmQuery"
-        value={values.savedFilmQuery}
+        name="savedMoviesQuery"
+        value={values.savedMoviesQuery}
         activeToggle={showShortsOnly}
         onChange={handleChange}
         onSubmit={handleSearch}
         onToggle={handleShortsToggle}
+        onInvalid={handleEmptyInput}
       />
-      {savedMovieList.length !== 0 && (
-        <MoviesCardList
-          movieList={savedMovieList}
-          showShortsOnly={showShortsOnly}
-          type="saved"
-          disableMoreButton
-          onRemove={handleMovieCardRemove}
-        />
-      )}
+      <MoviesCardList
+        movieList={savedMovieListForRender}
+        showShortsOnly={showShortsOnly}
+        type="saved"
+        disableMoreButton
+        onRemove={handleMovieCardRemove}
+      />
     </>
   );
 };

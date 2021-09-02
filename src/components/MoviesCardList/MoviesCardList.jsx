@@ -73,7 +73,7 @@ const MoviesCardList = (props) => {
           <Preloader mixClassName={b('preloader')} />
         ) : (
           <>
-            {movieList.length === 0 ? (
+            {getCardsForRender(movieList).length === 0 ? (
               <p className={b('error')}>
                 {isRequestError
                   ? 'Во время запроса произошла ошибка. Возможно, проблема с соединением или сервер недоступен. Подождите немного и попробуйте ещё раз.'

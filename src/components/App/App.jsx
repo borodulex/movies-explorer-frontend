@@ -31,6 +31,7 @@ function App() {
 
   const [currentUser, setCurrentUser] = useState({});
   const [isCurrentUserFetched, setIsCurrentUserFetched] = useState(false);
+  const [prevSessionData, setPrevSessionData] = useState({});
 
   const history = useHistory();
 
@@ -68,6 +69,13 @@ function App() {
     }
   }, [currentUser]);
 
+  useEffect(() => {
+    const prevSessionMovieList = JSON.parse(localStorage.getItem('movieList'));
+    setPrevSessionData({
+      movieList: prevSessionMovieList,
+    });
+  }, []);
+
   return (
     <CurrentUserContext.Provider value={{ currentUser, setCurrentUser }}>
       {isCurrentUserFetched && (
@@ -88,6 +96,7 @@ function App() {
                 path="/movies"
                 loggedIn={!isObjEmpty(currentUser)}
                 component={Movies}
+                initialData={prevSessionData}
               />
               <ProtectedRoute
                 path="/saved-movies"
