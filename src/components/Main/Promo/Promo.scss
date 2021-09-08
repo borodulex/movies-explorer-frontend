@@ -1,3 +1,5 @@
+@import '../../../styles/_vars.scss';
+
 .promo {
   display: flow-root;
   max-width: 1280px;
@@ -49,7 +51,7 @@
   }
 }
 
-@media screen and (max-width: 768px) {
+@media screen and (max-width: $tablet-width) {
   .promo {
     &__container {
       flex-direction: column-reverse;
@@ -92,7 +94,7 @@
   }
 }
 
-@media screen and (max-width: 425px) {
+@media screen and (max-width: $mobile-width) {
   .promo {
     &__container {
       min-height: 620px;

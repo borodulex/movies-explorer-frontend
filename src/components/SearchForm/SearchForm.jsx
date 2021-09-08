@@ -1,42 +1,49 @@
 import './SearchForm.scss';
 
 import block from 'bem-cn';
-import { useState } from 'react';
 
 import iconSearch from '../../images/icon-search.svg';
 import FilterSwitch from '../UiKit/Buttons/FilterSwitch/FilterSwitch';
 import IconButton from '../UiKit/Buttons/IconButton/IconButton';
 
-const SearchForm = () => {
+const SearchForm = (props) => {
+  const { name, value, activeToggle, onChange, onSubmit, onToggle, onInvalid } =
+    props;
+
   const b = block('search-form');
-
-  const [isOn, setIsOn] = useState(false);
-
-  const toggleSwitch = () => setIsOn(!isOn);
 
   return (
     <section className={b()}>
       <div className={b('container')}>
-        <form className={b('field')} noValidate>
+        <form className={b('field')} onSubmit={onSubmit} name="test">
           <input
             className={b('input')}
+            name={name}
+            value={value || ''}
             type="text"
             placeholder="Фильм"
             required
+            onChange={onChange}
+            onInvalid={(e) => {
+              onInvalid && onInvalid();
+              e.target.setCustomValidity('Нужно ввести ключевое слово');
+            }}
+            onInput={(e) => e.target.setCustomValidity('')}
           />
           <IconButton
             mixClassName={b('button')}
             iconSrc={iconSearch}
-            size={'medium'}
-            type={'solid'}
-            shape={'square'}
+            type="submit"
+            size="medium"
+            background="solid"
+            shape="square"
           />
         </form>
         <div className={b('shorts')}>
           <FilterSwitch
             mixClassName={b('switch')}
-            active={isOn}
-            onToggle={toggleSwitch}
+            active={activeToggle}
+            onToggle={onToggle}
           />
           <span className={b('switch-label')}>Короткометражки</span>
         </div>

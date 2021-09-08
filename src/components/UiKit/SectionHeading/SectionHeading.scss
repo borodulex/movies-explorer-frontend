@@ -1,3 +1,5 @@
+@import '../../../styles/_vars.scss';
+
 .section-heading {
   &__text {
     margin: 0;
@@ -13,7 +15,7 @@
   }
 }
 
-@media screen and (max-width: 425px) {
+@media screen and (max-width: $mobile-width) {
   .section-heading {
     &__text {
       font-size: 18px;

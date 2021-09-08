@@ -10,4 +10,9 @@
     opacity: 0.8;
     transition: opacity 0.1s ease-out;
   }
+
+  &:disabled {
+    cursor: default;
+    opacity: 1;
+  }
 }

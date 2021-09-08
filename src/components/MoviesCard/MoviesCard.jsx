@@ -1,25 +1,16 @@
 import './MoviesCard.scss';
 
 import block from 'bem-cn';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 
 import CardButton from '../UiKit/Buttons/CardButton/CardButton';
 
 const MoviesCard = (props) => {
-  const {
-    image,
-    name,
-    duration,
-    saved = false,
-    type,
-    onSave,
-    onDelete,
-  } = props;
-
-  const [isShown, setIsShown] = useState(saved);
-  const [isMovieSaved, setIsMovieSaved] = useState(saved);
+  const { movie, isSaved = false, type, onSave, onRemove } = props;
 
   const b = block('movies-card');
+
+  const [isButtonVisible, setIsButtonVisible] = useState(isSaved);
 
   const convertDuration = (duration) => {
     const hours = Math.floor(duration / 60);
@@ -28,31 +19,47 @@ const MoviesCard = (props) => {
   };
 
   const handleButtonClick = () => {
-    if (type === 'saved') {
-      onDelete && onDelete();
+    if (type === 'saved' || isSaved) {
+      onRemove && onRemove(movie);
     } else {
-      setIsMovieSaved(!isMovieSaved);
-      onSave && onSave();
+      onSave && onSave(movie);
     }
   };
+
+  const handleMouseOver = () => setIsButtonVisible(true);
+
+  const handleMouseLeave = () => !isSaved && setIsButtonVisible(false);
+
+  useEffect(() => {
+    isSaved && setIsButtonVisible(true);
+  }, [isSaved]);
 
   return (
     <article
       className={b()}
-      onMouseEnter={() => setIsShown(true)}
-      onMouseLeave={() => !isMovieSaved && setIsShown(false)}
+      onMouseOver={handleMouseOver}
+      onMouseLeave={handleMouseLeave}
     >
-      <img src={image} alt={`Карточка фильма ${name}`} className={b('image')} />
-      <div className={b('body')}>
-        <h3 className={b('title')}>{name}</h3>
-        <div className={b('duration')}>{convertDuration(duration)}</div>
-      </div>
-      {isShown && (
+      <a
+        className={b('link')}
+        href={movie.trailer}
+        target="_blank"
+        rel="noopener noreferrer"
+      >
+        <img
+          src={movie.image}
+          alt={`Карточка фильма ${movie.nameRU}`}
+          className={b('image')}
+        />
+        <div className={b('body')}>
+          <h3 className={b('title')}>{movie.nameRU}</h3>
+          <div className={b('duration')}>{convertDuration(movie.duration)}</div>
+        </div>
+      </a>
+      {isButtonVisible && (
         <CardButton
           mixClassName={b('button')}
-          type={
-            type === 'saved' ? 'remove' : isMovieSaved ? 'checked' : 'unchecked'
-          }
+          type={type === 'saved' ? 'remove' : isSaved ? 'checked' : 'unchecked'}
           onClick={handleButtonClick}
         />
       )}

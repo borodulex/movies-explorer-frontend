@@ -4,11 +4,13 @@ import block from 'bem-cn';
 
 import RegularLink from '../UiKit/Links/RegularLink/RegularLink';
 
-const Footer = () => {
+const Footer = (props) => {
+  const { mixClassName } = props;
+
   const b = block('footer');
 
   return (
-    <footer className={b()}>
+    <footer className={b.mix(mixClassName)}>
       <div className={b('container')}>
         <p className={b('caption')}>
           Учебный проект Яндекс.Практикум х BeatFilm.

@@ -5,12 +5,19 @@ import block from 'bem-cn';
 const AuthInput = (props) => {
   const {
     mixClassName,
-    value,
     label,
-    type,
     id,
+    name,
+    type,
+    theme,
+    value,
     required,
-    activeError,
+    minLength,
+    maxLength,
+    pattern,
+    patternCustomMessage,
+    errorMessage,
+    disabled,
     onChange,
   } = props;
 
@@ -18,19 +25,25 @@ const AuthInput = (props) => {
 
   return (
     <>
-      <label className={b('label').mix(mixClassName)} htmlFor={id}>
+      <label className={b({ theme }).mix(mixClassName)} htmlFor={id}>
         {label}
         <input
-          className={b({ type: activeError ? 'error' : '' })}
-          value={value}
-          type={type}
+          className={b('field', { type: !!errorMessage ? 'error' : '', theme })}
           id={id}
+          name={name}
+          value={value || ''}
+          type={type}
           required={required}
+          minLength={minLength}
+          maxLength={maxLength}
+          pattern={pattern}
+          data-patterncustommessage={patternCustomMessage}
+          disabled={disabled}
           onChange={onChange}
         />
       </label>
-      <span className={b('error', { visible: activeError })}>
-        Что-то пошло не так...
+      <span className={b('error', { visible: !!errorMessage, theme })}>
+        {errorMessage || 'Что-то пошло не так...'}
       </span>
     </>
   );

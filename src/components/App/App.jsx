@@ -1,7 +1,14 @@
-import { useState } from 'react';
-import { useMediaQuery } from 'react-responsive';
-import { Route, Switch, useHistory, useLocation } from 'react-router-dom';
+import './App.scss';
 
+import block from 'bem-cn';
+import { useEffect, useState } from 'react';
+import { useMediaQuery } from 'react-responsive';
+import { useHistory } from 'react-router';
+import { Route, Switch, useLocation } from 'react-router-dom';
+
+import { CurrentUserContext } from '../../contexts/currentUserContext';
+import { getBio } from '../../utils/MainApi';
+import { isObjEmpty } from '../../utils/utils';
 import Footer from '../Footer/Footer';
 import Header from '../Header/Header';
 import Login from '../Login/Login';
@@ -9,61 +16,123 @@ import Main from '../Main/Main';
 import Movies from '../Movies/Movies';
 import NotFound from '../NotFound/NotFound';
 import Profile from '../Profile/Profile';
+import ProtectedRoute from '../ProtectedRoute/ProtectedRoute';
 import Register from '../Register/Register';
 import SavedMovies from '../SavedMovies/SavedMovies';
 
 function App() {
+  const b = block('app');
+
   const location = useLocation();
-  const history = useHistory();
   const isTablet = useMediaQuery({ query: '(max-width: 768px)' });
 
   const headerIncludedPaths = ['/', '/movies', '/saved-movies', '/profile'];
   const footerIncludedPaths = ['/', '/movies', '/saved-movies'];
 
-  const [isLoggedIn, setIsLoggedIn] = useState();
+  const [currentUser, setCurrentUser] = useState({});
+  const [isCurrentUserFetched, setIsCurrentUserFetched] = useState(false);
+  const [prevSessionData, setPrevSessionData] = useState({});
 
-  const handleFakeLogin = () => {
-    setIsLoggedIn(true);
-    history.push('/movies');
+  const history = useHistory();
+
+  const pushToMoviesPage = () => history.push('/movies');
+
+  const handleRegister = (user) => {
+    setCurrentUser(user);
+    pushToMoviesPage();
   };
 
-  const handleFakeLogout = () => {
-    setIsLoggedIn(false);
+  const handleLogin = () => getCurrentUser(pushToMoviesPage);
+
+  const handleSignOut = () => {
+    setCurrentUser({});
+    localStorage.removeItem('movieList');
     history.push('/');
   };
 
+  const getCurrentUser = (action) => {
+    getBio()
+      .then((user) => {
+        setCurrentUser(user);
+        setIsCurrentUserFetched(true);
+        action && action();
+      })
+      .catch((error) => {
+        setIsCurrentUserFetched(true);
+        console.error(error);
+      });
+  };
+
+  useEffect(() => {
+    if (isObjEmpty(currentUser)) {
+      getCurrentUser();
+    }
+  }, [currentUser]);
+
+  useEffect(() => {
+    const prevSessionMovieList = JSON.parse(localStorage.getItem('movieList'));
+    setPrevSessionData({
+      movieList: prevSessionMovieList,
+    });
+  }, []);
+
   return (
-    <div className="page">
-      {headerIncludedPaths.includes(location.pathname) && (
-        <Header isLoggedIn={isLoggedIn} showHamburgerMenu={isTablet} />
+    <CurrentUserContext.Provider value={{ currentUser, setCurrentUser }}>
+      {isCurrentUserFetched && (
+        <div className={b()}>
+          {headerIncludedPaths.includes(location.pathname) && (
+            <Header
+              mixClassName={b('header')}
+              isLoggedIn={!isObjEmpty(currentUser)}
+              showHamburgerMenu={isTablet}
+            />
+          )}
+          <main className={b('content')}>
+            <Switch>
+              <Route exact path="/">
+                <Main />
+              </Route>
+              <ProtectedRoute
+                path="/movies"
+                loggedIn={!isObjEmpty(currentUser)}
+                component={Movies}
+                initialData={prevSessionData}
+              />
+              <ProtectedRoute
+                path="/saved-movies"
+                loggedIn={!isObjEmpty(currentUser)}
+                component={SavedMovies}
+              />
+              <ProtectedRoute
+                path="/profile"
+                loggedIn={!isObjEmpty(currentUser)}
+                component={Profile}
+                onSignOut={handleSignOut}
+              />
+              <ProtectedRoute
+                path="/signin"
+                loggedIn={isObjEmpty(currentUser)}
+                component={Login}
+                onLogin={handleLogin}
+              />
+              <ProtectedRoute
+                path="/signup"
+                loggedIn={isObjEmpty(currentUser)}
+                component={Register}
+                onRegister={handleRegister}
+              />
+              <ProtectedRoute
+                loggedIn={!isObjEmpty(currentUser)}
+                component={NotFound}
+              />
+            </Switch>
+          </main>
+          {footerIncludedPaths.includes(location.pathname) && (
+            <Footer mixClassName={b('footer')} />
+          )}
+        </div>
       )}
-      <main className="content">
-        <Switch>
-          <Route exact path="/">
-            <Main />
-          </Route>
-          <Route path="/movies">
-            <Movies />
-          </Route>
-          <Route path="/saved-movies">
-            <SavedMovies />
-          </Route>
-          <Route path="/profile">
-            <Profile onLogout={handleFakeLogout} />
-          </Route>
-          <Route path="/signin">
-            <Login onSubmit={handleFakeLogin} />
-          </Route>
-          <Route path="/signup">
-            <Register />
-          </Route>
-          <Route>
-            <NotFound />
-          </Route>
-        </Switch>
-      </main>
-      {footerIncludedPaths.includes(location.pathname) && <Footer />}
-    </div>
+    </CurrentUserContext.Provider>
   );
 }
 

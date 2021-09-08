@@ -1,3 +1,5 @@
+@import '../../styles/_vars.scss';
+
 .profile {
   &__form {
     display: flex;
@@ -22,8 +24,17 @@
   }
 
   &__separator {
-    margin: 16px 0;
+    margin: 3px 0 16px;
     border-bottom: 1px solid #e8e8e8;
+  }
+
+  &__success-message {
+    display: block;
+    margin-top: 40px;
+    color: #35d073;
+    font-size: 11px;
+    line-height: 13px;
+    text-align: center;
   }
 
   &__controls {
@@ -41,19 +52,12 @@
     }
   }
 
-  &__error {
-    color: #ff004c;
-    font-size: 11px;
-    line-height: 13px;
-    text-align: center;
-  }
-
   &__button {
     margin-top: 20px;
   }
 }
 
-@media screen and (max-width: 768px) {
+@media screen and (max-width: $tablet-width) {
   .profile {
     &__form {
       min-height: 445px;
@@ -67,7 +71,7 @@
   }
 }
 
-@media screen and (max-width: 425px) {
+@media screen and (max-width: $mobile-width) {
   .profile {
     &__form {
       min-height: 597px;

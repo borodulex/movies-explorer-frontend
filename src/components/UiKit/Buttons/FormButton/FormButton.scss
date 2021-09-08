@@ -1,3 +1,5 @@
+@import '../../../../styles/_vars.scss';
+
 .form-button {
   width: 100%;
   padding: 14px;
@@ -18,15 +20,10 @@
   &_disabled {
     color: #c2c2c2;
     background-color: #f8f8f8;
-
-    &:hover {
-      cursor: default;
-      opacity: 1;
-    }
   }
 }
 
-@media screen and (max-width: 425px) {
+@media screen and (max-width: $mobile-width) {
   .form-button {
     padding: 15px;
     font-size: 12px;

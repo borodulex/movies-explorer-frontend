@@ -1,3 +1,5 @@
+@import '../../styles/_vars.scss';
+
 .search-form {
   max-width: 1280px;
   margin: 0 auto;
@@ -23,7 +25,12 @@
     background-color: #f9f9f9;
     border: 0;
     border-radius: 8px;
-    outline-color: #e7e7e7;
+    outline: none;
+
+    &:focus {
+      box-shadow: rgba(0, 0, 0, 0.02) 0px 1px 3px 0px,
+        rgba(27, 31, 35, 0.15) 0px 0px 0px 1px;
+    }
 
     &::placeholder {
       color: #a0a0a0;
@@ -59,7 +66,7 @@
   }
 }
 
-@media screen and (max-width: 768px) {
+@media screen and (max-width: $tablet-width) {
   .search-form {
     &__shorts {
       margin-top: 40px;
@@ -67,7 +74,7 @@
   }
 }
 
-@media screen and (max-width: 425px) {
+@media screen and (max-width: $mobile-width) {
   .search-form {
     &__container {
       padding-right: 14px;

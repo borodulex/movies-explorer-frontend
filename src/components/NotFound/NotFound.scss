@@ -1,3 +1,5 @@
+@import '../../styles/_vars.scss';
+
 .not-found {
   display: flex;
   flex-direction: column;
@@ -24,7 +26,7 @@
   }
 }
 
-@media screen and (max-width: 768px) {
+@media screen and (max-width: $tablet-width) {
   .not-found {
     &__title {
       margin-top: 408px;
@@ -37,7 +39,7 @@
   }
 }
 
-@media screen and (max-width: 425px) {
+@media screen and (max-width: $mobile-width) {
   .not-found {
     &__title {
       margin-top: 329px;
